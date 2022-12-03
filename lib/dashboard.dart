@@ -548,9 +548,9 @@ class _DashboardState extends State<Dashboard> {
                                             )
                                           ],
                                         ),
-                                        const Padding(
-                                          padding: EdgeInsets.symmetric(horizontal: 20.0),
-                                          child: Text('Admin', style: TextStyle(color: Color(0xFF00654F), fontSize: 14, fontWeight: FontWeight.w600, letterSpacing: 2)),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                                          child: Text((isAdmin ? 'Admin' : 'User'), style: const TextStyle(color: Color(0xFF00654F), fontSize: 14, fontWeight: FontWeight.w600, letterSpacing: 2)),
                                         ),
                                         const RotatedBox(quarterTurns: 3,child: Icon(Icons.arrow_back_ios_rounded, size: 12, color: Color(0xFF86BAB5))),
                                       ],
@@ -583,9 +583,8 @@ class _DashboardState extends State<Dashboard> {
                                 firstChild: _dashboardUp(context),
                                 secondChild: _dashboardDown(context),
                                 crossFadeState: _inUp ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                                firstCurve: Curves.bounceIn,
-                                secondCurve: Curves.bounceIn,
-                                sizeCurve: Curves.easeInCirc,
+                                firstCurve: Curves.easeIn,
+                                secondCurve: Curves.easeIn,
                                 duration: const Duration(milliseconds: 200),
                             )
                           )
