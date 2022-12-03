@@ -298,18 +298,36 @@ Widget _dashboardDown(BuildContext context){
   );
 }
 
-class DashboardAdmin extends StatefulWidget {
-  const DashboardAdmin({super.key});
+class Dashboard extends StatefulWidget {
+  final String session;
+  const Dashboard({required this.session, Key? key}) : super(key: key);
+
   @override
-  State<DashboardAdmin> createState() => _DashboardAdminState();
+  State<Dashboard> createState() => _DashboardState();
 }
 
-class _DashboardAdminState extends State<DashboardAdmin> {
+class _DashboardState extends State<Dashboard> {
   late bool _inUp = true;
+  bool isAdmin = false;
+
+  @override
+  void initState() {
+    verifySession();
+    super.initState();
+  }
+
   void _changeDashboard(){
     setState(() {
       _inUp = !_inUp;
     });
+  }
+
+  void verifySession(){
+    if(widget.session == 'admin'){
+      isAdmin = true;
+    }else if(widget.session == 'user'){
+      isAdmin = false;
+    }
   }
 
   @override
@@ -550,7 +568,10 @@ class _DashboardAdminState extends State<DashboardAdmin> {
                                   ),
                                   const SizedBox(height: 1, width: 10),
                                   TextButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        Navigator.pop(context);
+                                      },
                                       child: const Icon(Icons.logout_rounded, size: 22, color: Color(0xFF86BAB5))
                                   ),
                                 ],

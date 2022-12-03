@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rmpwebapp/dashboard_admin.dart';
+import 'package:rmpwebapp/dashboard.dart';
+import 'package:rmpwebapp/login.dart';
 
 class About extends StatefulWidget {
   const About({Key? key}) : super(key: key);
@@ -70,7 +71,7 @@ class _AboutState extends State<About> {
                                       shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50))))
                                     ),
                                     onPressed: (){
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => const DashboardAdmin()));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => const Login(session: 'admin')));
                                     },
                                     child: const Padding(
                                       padding: EdgeInsets.symmetric(vertical: 10.0),
@@ -86,7 +87,9 @@ class _AboutState extends State<About> {
                                         backgroundColor: MaterialStatePropertyAll(Color(0xFF138B7E)),
                                         shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50))))
                                     ),
-                                    onPressed: (){},
+                                    onPressed: (){
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => const Login(session: 'user')));
+                                    },
                                     child: const Padding(
                                       padding: EdgeInsets.symmetric(vertical: 10.0),
                                       child: Text('User', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.normal)),

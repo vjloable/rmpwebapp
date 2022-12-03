@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rmpwebapp/about.dart';
+import 'package:rmpwebapp/branches.dart';
+import 'package:rmpwebapp/login.dart';
 
 Future<void> main() async {
   runApp(const MyApp());
@@ -18,7 +20,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFE5E3E4),
         primarySwatch: Colors.blue,
       ),
-      home: const About(),
+      home: const Branches(),
     );
   }
 }
