@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dashboard.dart';
+import 'package:rmpwebapp/about.dart';
 
 Future<void> main() async {
   runApp(const MyApp());
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFE5E3E4),
         primarySwatch: Colors.blue,
       ),
-      home: const Dashboard(),
+      home: const About(),
     );
   }
 }

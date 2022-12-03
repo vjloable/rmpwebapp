@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:rmpwebapp/branches.dart';
 import 'package:rmpwebapp/warehouse.dart';
 
 Widget _dashboardUp(BuildContext context){
@@ -63,7 +64,9 @@ Widget _dashboardUp(BuildContext context){
                                       borderRadius: BorderRadius.circular(50.0)
                                   )
                               ),
-                              onPressed: (){},
+                              onPressed: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const Branches()));
+                              },
                               child: const Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
                                 child: SizedBox(width: 150, child: Text('Branches Inventory', textAlign: TextAlign.center, style: TextStyle(fontSize: 16))),
@@ -295,13 +298,13 @@ Widget _dashboardDown(BuildContext context){
   );
 }
 
-class Dashboard extends StatefulWidget {
-  const Dashboard({super.key});
+class DashboardAdmin extends StatefulWidget {
+  const DashboardAdmin({super.key});
   @override
-  State<Dashboard> createState() => _DashboardState();
+  State<DashboardAdmin> createState() => _DashboardAdminState();
 }
 
-class _DashboardState extends State<Dashboard> {
+class _DashboardAdminState extends State<DashboardAdmin> {
   late bool _inUp = true;
   void _changeDashboard(){
     setState(() {
@@ -351,7 +354,7 @@ class _DashboardState extends State<Dashboard> {
                               bottom: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
                               right: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
                             ),
-                            onPressed: () {},
+                            onPressed: null,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
