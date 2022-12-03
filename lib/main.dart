@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rmpwebapp/warehouse.dart';
 import 'dashboard.dart';
 
 Future<void> main() async {
@@ -12,13 +13,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'RM Pharmacy',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: const Color(0xFFE5E3E4),
         primarySwatch: Colors.blue,
       ),
-      home: const Dashboard(),
+      home: const Warehouse(),
     );
   }
 }

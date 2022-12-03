@@ -302,10 +302,10 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  late Widget _showDashboard = _dashboardUp(context);
-  void _changeDashboard(Widget w){
+  late bool _inUp = true;
+  void _changeDashboard(){
     setState(() {
-      _showDashboard = w;
+      _inUp = !_inUp;
     });
   }
 
@@ -465,7 +465,7 @@ class _DashboardState extends State<Dashboard> {
                                     height: 60,
                                     width: 600,
                                     child: TextFormField(
-                                      cursorColor: Colors.black,
+                                      cursorColor: const Color(0xFF00654F),
                                       keyboardType: TextInputType.text,
                                       decoration: InputDecoration(
                                         fillColor: Colors.white,
@@ -555,31 +555,33 @@ class _DashboardState extends State<Dashboard> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 40),
-                            child: AnimatedSwitcher(
-                              duration: const Duration(seconds: 1),
-                              child: _showDashboard,
-                            ),
+                            child: AnimatedCrossFade(
+                                firstChild: _dashboardUp(context),
+                                secondChild: _dashboardDown(context),
+                                crossFadeState: _inUp ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                                firstCurve: Curves.bounceIn,
+                                secondCurve: Curves.bounceIn,
+                                sizeCurve: Curves.easeInCirc,
+                                duration: const Duration(milliseconds: 200),
+                            )
                           )
                         ],
                       ),
                     ),
                     Positioned(
-                        right: 90,
-                        top: 850,
-                        child: MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: RotatedBox(
-                            quarterTurns: 2,
-                            child: Container(
-                              width: 120,
-                              height: 120,
-                              color: Colors.transparent,
-                              child: IconButton(
-                                icon: const Icon(Icons.arrow_drop_down_circle_rounded, size: 100, color: Color(0xAF86BAB5)),
-                                onPressed: () {
-                                  _changeDashboard(_dashboardDown(context));
-                                },
-                              ),
+                        right: 40,
+                        top: _inUp ? 850 : 120,
+                        child: RotatedBox(
+                          quarterTurns: _inUp ? 4 : 2,
+                          child: Container(
+                            width: 120,
+                            height: 120,
+                            color: Colors.transparent,
+                            child: IconButton(
+                              icon: const Icon(Icons.arrow_drop_down_circle_rounded, size: 100, color: Color(0xAF86BAB5)),
+                              onPressed: () {
+                                _changeDashboard();
+                              },
                             ),
                           ),
                         )
