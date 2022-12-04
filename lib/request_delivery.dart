@@ -37,7 +37,22 @@ class _RequestDeliveryState extends State<RequestDelivery> {
                   child: Row(
                     children: [
                       const SizedBox(height: 1, width: 50),
-                      const SizedBox(height: 90, child: Align(alignment: Alignment.topCenter, child: Icon(Icons.home, color: Color(0xFF138B7E), size: 50))),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 50),
+                        child: SizedBox(
+                          width: 60,
+                          height: 60,
+                          child: IconButton(
+                            splashRadius: 30,
+                            icon: const Icon(Icons.home, size: 40),
+                            color: const Color(0xFF138B7E),
+                            onPressed: () {
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                              },
+                          ),
+                        ),
+                      ),
                       const SizedBox(height: 1, width: 50),
                       SizedBox(
                         height: 180,

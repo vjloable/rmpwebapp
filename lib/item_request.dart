@@ -180,7 +180,16 @@ class _ItemRequestState extends State<ItemRequest> {
                               width: 80,
                               child: Column(
                                 children: [
-                                  const SizedBox(height: 80, width: 80, child: Center(child: Icon(Icons.delete, color: Color(0xFFDDBEAA), size: 48))),
+                                  const MouseRegion(
+                                    cursor: SystemMouseCursors.click,
+                                    child: SizedBox(
+                                      height: 80,
+                                      width: 80,
+                                      child: Center(
+                                          child: Icon(Icons.delete, color: Color(0xFFDDBEAA), size: 48)
+                                      ),
+                                    ),
+                                  ),
                                   Column(
                                     children:
                                     List.generate(quantityValA.length, (index) => SizedBox(height: 80, width: 80, child: Center(child: Checkbox(fillColor: const MaterialStatePropertyAll(Colors.brown), side: const BorderSide(color: Color(0xFFDDBEAA), width: 2), value: checkVal[index], onChanged: (e){setState(() {checkVal[index] = !checkVal[index];});}))))

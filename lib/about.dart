@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rmpwebapp/dashboard.dart';
 import 'package:rmpwebapp/login.dart';
 
 class About extends StatefulWidget {
@@ -20,7 +19,7 @@ class _AboutState extends State<About> {
         child: FittedBox(
           fit: BoxFit.fitWidth,
           child: Container(
-            color: Colors.white,//const Color(0xFFE5E3E4),
+            color: const Color(0xFFE5E3E4),
             height: 1200,
             width: 1600,
             child: Center(
@@ -31,9 +30,10 @@ class _AboutState extends State<About> {
                 child: Row(
                   children: [
                     Container(
-                      color: Colors.red,//const Color(0xFFE5E3E4),
+                      color: Colors.transparent,//const Color(0xFFE5E3E4),
                       height: 600,
                       width: 500,
+                      child: const FittedBox(fit: BoxFit.cover, child: Image(image: AssetImage('about_photo.png'))),
                     ),
                     const SizedBox(width: 20),
                     Container(
@@ -107,36 +107,6 @@ class _AboutState extends State<About> {
               ),
             ),
           ),
-          /*
-          child: Container(
-            color: const Color(0xFFE5E3E4),
-            height: 1200,
-            width: 1600,
-            child: Center(
-              child: Row(
-                children: [
-                  Container(
-                    color: Colors.white,
-                    height: 1200,
-                    width: 700,
-                    child: Center(
-                      child: Container(
-                        color: Colors.red,
-                        height: 200,
-                        width: 200,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    color: Colors.yellow,
-                    height: 1200,
-                    width: 900,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          */
         ),
       )
     );

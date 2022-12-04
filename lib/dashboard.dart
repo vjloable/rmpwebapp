@@ -1,10 +1,11 @@
-
 import 'package:flutter/material.dart';
 import 'package:rmpwebapp/branches.dart';
+import 'package:rmpwebapp/delivery_status.dart';
 import 'package:rmpwebapp/item_request.dart';
+import 'package:rmpwebapp/stock_ordered_main.dart';
 import 'package:rmpwebapp/warehouse.dart';
 
-Widget _dashboardUp(BuildContext context){
+Widget _dashboardUp(BuildContext context, Function callback, bool state){
   return Column(
     mainAxisAlignment: MainAxisAlignment.start,
     children: [
@@ -24,7 +25,8 @@ Widget _dashboardUp(BuildContext context){
                   width: 350,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
-                    color: Colors.red,
+                    color: Colors.grey,
+                    image: DecorationImage(fit: BoxFit.cover, image: AssetImage('inventory_tab.png')),
                   ),
                 ),
                 Column(
@@ -104,7 +106,8 @@ Widget _dashboardUp(BuildContext context){
                   width: 350,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
-                    color: Colors.red,
+                    color: Colors.grey,
+                    image: DecorationImage(fit: BoxFit.cover, image: AssetImage('item_request.png')),
                   ),
                 ),
                 Column(
@@ -168,54 +171,133 @@ Widget _dashboardUp(BuildContext context){
                   width: 350,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
-                    color: Colors.red,
+                    color: Colors.grey,
+                    image: DecorationImage(fit: BoxFit.cover, image: AssetImage('trans_deliv.png')),
                   ),
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                Stack(
                   children: [
-                    const SizedBox(height: 40),
-                    const SizedBox(width: 950, child: Padding(
-                      padding: EdgeInsets.only(left: 150),
-                      child: Text('Transaction and Delivery', style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),),
-                    )),
-                    const SizedBox(height: 40),
                     SizedBox(
-                      width: 950,
-                      child: Row(
+                      height: 250,
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          const SizedBox(width: 150),
-                          ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFFDDBEAA),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(50.0)
-                                  )
-                              ),
-                              onPressed: (){},
-                              child: const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
-                                child: SizedBox(width: 150, child: Text('Supplier', textAlign: TextAlign.center, style: TextStyle(fontSize: 16))),
-                              )
+                          AnimatedCrossFade(
+                            firstChild: const SizedBox(height: 40),
+                            secondChild: const SizedBox(height: 0),
+                            crossFadeState: state ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                            duration: const Duration(milliseconds: 100),
+                            reverseDuration: const Duration(milliseconds: 100),
                           ),
-                          const SizedBox(width: 60),
-                          ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFFDDBEAA),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(50.0)
-                                  )
-                              ),
-                              onPressed: () {},
-                              child: const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
-                                child: SizedBox(width: 150, child: Text('Branches', textAlign: TextAlign.center, style: TextStyle(fontSize: 16))),
-                              )
+                          AnimatedCrossFade(
+                            firstChild: SizedBox(width: 950, child: Padding(
+                              padding: const EdgeInsets.only(left: 150),
+                              child: Text(state ? '' : 'Transaction and Delivery', style: const TextStyle(fontSize: 34, fontWeight: FontWeight.bold),),
+                            )),
+                            secondChild: Container(),
+                            crossFadeState: state ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                            duration: const Duration(milliseconds: 100),
+                            reverseDuration: const Duration(milliseconds: 100),
+                          ),
+                          const SizedBox(height: 40),
+                          SizedBox(
+                            width: 950,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const SizedBox(width: 150),
+                                ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: const Color(0xFFDDBEAA),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(50.0)
+                                        )
+                                    ),
+                                    onPressed: (){
+                                      callback();
+                                    },
+                                    child: const Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
+                                      child: SizedBox(width: 150, child: Text('Supplier', textAlign: TextAlign.center, style: TextStyle(fontSize: 16))),
+                                    )
+                                ),
+                                const SizedBox(width: 60),
+                                AnimatedCrossFade(
+                                  firstChild: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor: const Color(0xFFDDBEAA),
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(50.0)
+                                          )
+                                      ),
+                                      onPressed: () {},
+                                      child: const Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
+                                        child: SizedBox(width: 150, child: Text('Branches', textAlign: TextAlign.center, style: TextStyle(fontSize: 16))),
+                                      )
+                                  ),
+                                  secondChild: Container(),
+                                  crossFadeState: state ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                                  duration: const Duration(milliseconds: 100),
+                                  reverseDuration: const Duration(milliseconds: 100),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
-                    )
+                    ),
+                    Positioned(
+                      top: 100,
+                      left: 155,
+                      child: AnimatedCrossFade(
+                        firstChild: const SizedBox(height: 0),
+                        secondChild: SizedBox(
+                          height: 130,
+                          width: 300,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextButton(
+                                    onPressed: () {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => const StockOrderedMain()));
+                                    },
+                                    child: Row(
+                                      children: const [
+                                        Icon(Icons.arrow_forward_ios_rounded, color: Color(0xFFDDBEAA)),
+                                        Text('  Stock Ordered', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold)),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const Divider(height: 10, color: Color(0xFFDDBEAA), thickness: 1),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextButton(
+                                    onPressed: () {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => const DeliveryStatus()));
+                                    },
+                                    child: Row(
+                                      children: const [
+                                        Icon(Icons.arrow_forward_ios_rounded, color: Color(0xFFDDBEAA)),
+                                        Text('  Delivery Status', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold)),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        crossFadeState: state ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                        reverseDuration: const Duration(milliseconds: 100),
+                        duration: const Duration(milliseconds: 100),
+                      ),
+                    ),
                   ],
                 )
               ],
@@ -250,7 +332,8 @@ Widget _dashboardDown(BuildContext context){
                   width: 350,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
-                    color: Colors.red,
+                    color: Colors.grey,
+                    image: DecorationImage(fit: BoxFit.cover, image: AssetImage('register_debt.png')),
                   ),
                 ),
                 Column(
@@ -311,6 +394,7 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   late bool _inUp = true;
+  static bool _isSupplierClicked = false;
   bool isAdmin = false;
 
   @override
@@ -322,6 +406,13 @@ class _DashboardState extends State<Dashboard> {
   void _changeDashboard(){
     setState(() {
       _inUp = !_inUp;
+      if(_inUp){_isSupplierClicked=false;}
+    });
+  }
+
+  void _clickSupplier(){
+    setState(() {
+      _isSupplierClicked = !_isSupplierClicked;
     });
   }
 
@@ -583,7 +674,7 @@ class _DashboardState extends State<Dashboard> {
                           Padding(
                             padding: const EdgeInsets.only(top: 40),
                             child: AnimatedCrossFade(
-                                firstChild: _dashboardUp(context),
+                                firstChild: _dashboardUp(context, _clickSupplier, _isSupplierClicked),
                                 secondChild: _dashboardDown(context),
                                 crossFadeState: _inUp ? CrossFadeState.showFirst : CrossFadeState.showSecond,
                                 firstCurve: Curves.easeIn,
