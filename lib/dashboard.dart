@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:rmpwebapp/branches.dart';
+import 'package:rmpwebapp/item_request.dart';
 import 'package:rmpwebapp/warehouse.dart';
 
 Widget _dashboardUp(BuildContext context){
@@ -128,7 +129,9 @@ Widget _dashboardUp(BuildContext context){
                                       borderRadius: BorderRadius.circular(50.0)
                                   )
                               ),
-                              onPressed: (){},
+                              onPressed: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const ItemRequest()));
+                              },
                               child: const Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
                                 child: SizedBox(width: 150, child: Text('Open', textAlign: TextAlign.center, style: TextStyle(fontSize: 16))),
