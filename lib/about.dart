@@ -33,7 +33,7 @@ class _AboutState extends State<About> {
                       color: Colors.transparent,//const Color(0xFFE5E3E4),
                       height: 600,
                       width: 500,
-                      child: const FittedBox(fit: BoxFit.cover, child: Image(image: AssetImage('about_photo.png'))),
+                      child: FittedBox(fit: BoxFit.cover, child: Image.network('https://ibb.co/mCkKrjX')),
                     ),
                     const SizedBox(width: 20),
                     Container(

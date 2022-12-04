@@ -26,7 +26,7 @@ Widget _dashboardUp(BuildContext context, Function callback, bool state){
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
                     color: Colors.grey,
-                    image: DecorationImage(fit: BoxFit.cover, image: AssetImage('inventory_tab.png')),
+                    image: DecorationImage(fit: BoxFit.cover, image: NetworkImage('https://ibb.co/Gx06CZm')),
                   ),
                 ),
                 Column(
