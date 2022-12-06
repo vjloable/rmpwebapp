@@ -479,7 +479,7 @@ class _DashboardState extends State<Dashboard> {
                                 width: 1600,
                                 child: Row(
                                   children: [
-                                    const SizedBox(height: 1, width: 100),
+                                    const SizedBox(height: 1, width: 150),
                                     SizedBox(
                                       height: 60,
                                       width: 600,
