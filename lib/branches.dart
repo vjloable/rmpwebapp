@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 Widget _barData({required String text, required double front, required double back}) {
@@ -11,7 +12,7 @@ Widget _barData({required String text, required double front, required double ba
         Container(color: Colors.transparent, width: 300,
             child: Padding(
               padding: const EdgeInsets.only(top: 30, bottom: 30, right: 30),
-              child: Text(text, textAlign: TextAlign.right, style: const TextStyle(color: Color(0xFF138B7E), fontSize: 24, fontWeight: FontWeight.normal)),
+              child: Text(text, textAlign: TextAlign.right, style: GoogleFonts.getFont('Open Sans', fontWeight: FontWeight.normal, color: const Color(0xFF138B7E), fontSize: 20)),
             )
         ),
         Stack(
@@ -95,14 +96,14 @@ class _BranchesState extends State<Branches> {
                   child: Row(
                     children: [
                       const SizedBox(height: 1, width: 50),
-                      SizedBox(height: 100, child: Center(child: IconButton(onPressed: (){Navigator.of(context).pop();}, icon: const Icon(Icons.arrow_back, color: Color(0xFF138B7E), size: 30), padding: EdgeInsets.zero,))),
+                      SizedBox(height: 100, child: Center(child: IconButton(onPressed: (){Navigator.of(context).pop();}, icon: const Icon(Icons.arrow_back, color: Color(0xFF469597), size: 30), padding: EdgeInsets.zero,))),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: SizedBox(
                           height: 50,
                           width: 30,
                           child: VerticalDivider(
-                            color: Color(0xFF138B7E),
+                            color: Color(0xFF469597),
                           ),
                         ),
                       ),
@@ -111,16 +112,17 @@ class _BranchesState extends State<Branches> {
                         width: 200,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             SizedBox(
                               height: 30,
                               width: 200,
-                              child: Text('BRANCHES', style: TextStyle(color: Color(0xFF138B7E), fontSize: 24, fontWeight: FontWeight.bold)),
+                              child:
+                              Text('BRANCHES', style: GoogleFonts.getFont('Antonio', fontWeight: FontWeight.bold, color: const Color(0xFF138B7E), fontSize: 24.8)),//TextStyle(color: Color(0xFF138B7E), fontSize: 24, fontWeight: FontWeight.bold)),
                             ),
                             SizedBox(
                               height: 30,
                               width: 200,
-                              child: Text('INVENTORY', style: TextStyle(color: Color(0xFF138B7E), fontSize: 24, fontWeight: FontWeight.bold)),
+                              child: Text('INVENTORY', style: GoogleFonts.getFont('Antonio', fontWeight: FontWeight.bold, color: const Color(0xFF138B7E), fontSize: 24.8)),//style: TextStyle(color: Color(0xFF138B7E), fontSize: 24, fontWeight: FontWeight.bold)),
                             ),
                           ],
                         ),
@@ -166,8 +168,8 @@ class _BranchesState extends State<Branches> {
                             errorBorder: InputBorder.none,
                             disabledBorder: InputBorder.none,
                             contentPadding: EdgeInsets.zero,
-                            hintText: 'Location',
-                            hintStyle: const TextStyle(color: Color(0xFF86BAB5), fontSize: 14, fontStyle: FontStyle.italic, fontWeight: FontWeight.w300),
+                            hintText: 'Iligan Branch',
+                            hintStyle: GoogleFonts.getFont('Open Sans', color: const Color(0xFF86BAB5), fontSize: 10, fontStyle: FontStyle.italic, fontWeight: FontWeight.normal),
                             filled: true,
                             suffixIcon: const Padding(
                               padding: EdgeInsets.only(left: 0, right: 20),
@@ -284,17 +286,17 @@ class _BranchesState extends State<Branches> {
                               child: Row(
                                 children: const [
                                   SizedBox(width: 297),
-                                  Text('0', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)),
+                                  Text('0', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF469597), fontSize: 16, fontWeight: FontWeight.w100)),
                                   SizedBox(width: 116),
-                                  Text('250', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)),
+                                  Text('250', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF469597), fontSize: 16, fontWeight: FontWeight.w100)),
                                   SizedBox(width: 118),
-                                  Text('500', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)),
+                                  Text('500', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF469597), fontSize: 16, fontWeight: FontWeight.w100)),
                                   SizedBox(width: 117),
-                                  Text('750', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)),
-                                  SizedBox(width: 112),
-                                  Text('1000', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)),
-                                  SizedBox(width: 94),
-                                  Text('1250', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)),
+                                  Text('750', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF469597), fontSize: 16, fontWeight: FontWeight.w100)),
+                                  SizedBox(width: 110),
+                                  Text('1,000', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF469597), fontSize: 16, fontWeight: FontWeight.w100)),
+                                  SizedBox(width: 92),
+                                  Text('1,250', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF469597), fontSize: 16, fontWeight: FontWeight.w100)),
                                 ],
                               ),
                             ),
@@ -326,7 +328,7 @@ class _BranchesState extends State<Branches> {
                                           pointers: <GaugePointer>[
                                             RangePointer(
                                               value: isAdmin ? 67 : 56,
-                                              width: 60,
+                                              width: 70,
                                               cornerStyle: CornerStyle.bothCurve,
                                               color: const Color(0xFFDDBEAA),
                                             )
@@ -335,7 +337,7 @@ class _BranchesState extends State<Branches> {
                                           showAxisLine: true,
                                           showTicks: false,
                                           axisLineStyle: const AxisLineStyle(
-                                            thickness: 60,
+                                            thickness: 70,
                                             color: Colors.white,
                                           ),
                                           startAngle: 270,
@@ -348,9 +350,9 @@ class _BranchesState extends State<Branches> {
                             SizedBox(
                               width: 500,
                               height: 400,
-                              child: Center(child: Text(isAdmin ? '67%' : '56%',textAlign: TextAlign.center, style: const TextStyle(color: Color(0xFF138B7E), fontSize: 100,fontWeight:FontWeight.w300))),
+                              child: Center(child: Text(isAdmin ? '67%' : '56%',textAlign: TextAlign.center, style: GoogleFonts.getFont('Open Sans', fontWeight: FontWeight.normal, color: const Color(0xFF138B7E), fontSize: 73.3))),
                             ),
-                            const Positioned(top: 285, child: SizedBox(width: 500, height: 150, child: VerticalDivider(color: Color(0xFF138B7E)))),
+                            const Positioned(top: 285, child: SizedBox(width: 500, height: 150, child: VerticalDivider(color: Color(0xFF469597)))),
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: Container(
@@ -361,26 +363,26 @@ class _BranchesState extends State<Branches> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Column(
-                                      children: const [
+                                      children: [
                                         SizedBox(
                                           width: 150,
-                                          child: Text('Total Stocks:',textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF138B7E), fontSize: 22,fontWeight:FontWeight.w300)),
+                                          child: Text('Total Stocks:',textAlign: TextAlign.center, style: GoogleFonts.getFont('Open Sans', fontWeight: FontWeight.normal, color: const Color(0xFF138B7E), fontSize: 17.7)),
                                         ),
                                         SizedBox(
                                           width: 150,
-                                          child: Text('2750',textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF138B7E), fontSize: 22,fontWeight:FontWeight.w300)),
+                                          child: Text('2750',textAlign: TextAlign.center, style: GoogleFonts.getFont('Open Sans', fontWeight: FontWeight.normal, color: const Color(0xFF138B7E), fontSize: 17.7)),
                                         ),
                                       ],
                                     ),
                                     Column(
-                                      children: const [
+                                      children: [
                                         SizedBox(
                                           width: 150,
-                                          child: Text('Available Space:',textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF138B7E), fontSize: 22,fontWeight:FontWeight.w300)),
+                                          child: Text('Available Space:',textAlign: TextAlign.center, style: GoogleFonts.getFont('Open Sans', fontWeight: FontWeight.normal, color: const Color(0xFF138B7E), fontSize: 17.7)),
                                         ),
                                         SizedBox(
                                           width: 150,
-                                          child: Text('1843',textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF138B7E), fontSize: 22,fontWeight:FontWeight.w300)),
+                                          child: Text('1843',textAlign: TextAlign.center, style: GoogleFonts.getFont('Open Sans', fontWeight: FontWeight.normal, color: const Color(0xFF138B7E), fontSize: 17.7)),
                                         ),
                                       ],
                                     ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class RegisterDebt extends StatefulWidget {
   const RegisterDebt({Key? key}) : super(key: key);
@@ -42,16 +43,17 @@ class _RegisterDebtState extends State<RegisterDebt> {
                             onTap: () {
                               Navigator.pop(context);
                             },
-                            child: const Icon(Icons.keyboard_return, size: 45, color: Color(0xFF138B7E)),
+                            child: const Icon(Icons.keyboard_return, size: 45, color: Color(0xFF469597)),
                           ),
                         ),
                       ),
                       const SizedBox(height: 1, width: 50),
-                      const SizedBox(
+                      SizedBox(
                         width: 500,
                         child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                          child: Text('REGISTER/\nDEBIT', style: TextStyle(color: Color(0xFF138B7E), letterSpacing: 3, fontSize: 70, fontWeight: FontWeight.bold)),
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Text('REGISTER/\nDEBIT', style: GoogleFonts.getFont('Work Sans', fontSize: 70, fontWeight: FontWeight.w900, color: const Color(0xFF469597)))
+                          //TextStyle(color: Color(0xFF469597), letterSpacing: 3, fontSize: 70, fontWeight: FontWeight.bold)),
                         ),
                       ),
                     ],

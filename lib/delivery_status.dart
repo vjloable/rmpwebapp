@@ -78,7 +78,7 @@ class _DeliveryStatusState extends State<DeliveryStatus> {
                               child: IconButton(
                                 splashRadius: 35,
                                 icon: const Center(child: Icon(Icons.arrow_back, size: 30)),
-                                color: const Color(0xFF138B7E),
+                                color: const Color(0xFF469597),
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
@@ -90,7 +90,7 @@ class _DeliveryStatusState extends State<DeliveryStatus> {
                               child: SizedBox(
                                 height: 60,
                                 width: 400,
-                                child: Text('Delivery Status', style: TextStyle(color: Color(0xFF138B7E), letterSpacing: 2, fontSize: 50, fontWeight: FontWeight.bold)),
+                                child: Text('Delivery Status', style: TextStyle(color: Color(0xFF469597), letterSpacing: 2, fontSize: 50, fontWeight: FontWeight.bold)),
                               ),
                             ),
                           ],
@@ -136,9 +136,9 @@ class _DeliveryStatusState extends State<DeliveryStatus> {
                                             headingRowHeight: 80,
                                             dataRowHeight: 80,
                                             showCheckboxColumn: true,
-                                            headingTextStyle: const TextStyle(color: Color(0xFF138B7E), fontSize: 22, fontWeight: FontWeight.bold),
-                                            dataTextStyle: const TextStyle(color: Color(0xFF138B7E), fontSize: 20, fontWeight: FontWeight.w100),
-                                            border: TableBorder.all(width: 1, color: const Color(0xFF138B7E)),
+                                            headingTextStyle: const TextStyle(color: Color(0xFF469597), fontSize: 22, fontWeight: FontWeight.bold),
+                                            dataTextStyle: const TextStyle(color: Color(0xFF469597), fontSize: 20, fontWeight: FontWeight.w100),
+                                            border: TableBorder.all(width: 1, color: const Color(0xFF469597)),
                                             columns: const [
                                               DataColumn(label: Expanded(child: Text('Transaction\nCode', textAlign: TextAlign.center))),
                                               DataColumn(label: Expanded(child: Text('Date\nPurchased', textAlign: TextAlign.center))),

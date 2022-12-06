@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Warehouse extends StatefulWidget {
   const Warehouse({Key? key}) : super(key: key);
@@ -34,14 +35,14 @@ class _WarehouseState extends State<Warehouse> {
                   child: Row(
                     children: [
                       const SizedBox(height: 1, width: 50),
-                      SizedBox(height: 100, child: Center(child: IconButton(onPressed: (){Navigator.of(context).pop();}, icon: const Icon(Icons.arrow_back, color: Color(0xFF138B7E), size: 30), padding: EdgeInsets.zero,))),
+                      SizedBox(height: 100, child: Center(child: IconButton(onPressed: (){Navigator.of(context).pop();}, icon: const Icon(Icons.arrow_back, color: Color(0xFF469597), size: 30), padding: EdgeInsets.zero,))),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: SizedBox(
                           height: 50,
                           width: 30,
                           child: VerticalDivider(
-                            color: Color(0xFF138B7E),
+                            color: Color(0xFF469597),
                           ),
                         ),
                       ),
@@ -50,16 +51,16 @@ class _WarehouseState extends State<Warehouse> {
                         width: 200,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             SizedBox(
                               height: 30,
                               width: 200,
-                              child: Text('WAREHOUSE', style: TextStyle(color: Color(0xFF138B7E), fontSize: 24, fontWeight: FontWeight.bold)),
+                              child: Text('WAREHOUSE', style: GoogleFonts.getFont('Antonio', fontWeight: FontWeight.bold, color: const Color(0xFF138B7E), fontSize: 24.8)),
                             ),
                             SizedBox(
                               height: 30,
                               width: 200,
-                              child: Text('INVENTORY', style: TextStyle(color: Color(0xFF138B7E), fontSize: 24, fontWeight: FontWeight.bold)),
+                              child: Text('INVENTORY', style: GoogleFonts.getFont('Antonio', fontWeight: FontWeight.bold, color: const Color(0xFF138B7E), fontSize: 24.8)),
                             ),
                           ],
                         ),
@@ -106,7 +107,7 @@ class _WarehouseState extends State<Warehouse> {
                             disabledBorder: InputBorder.none,
                             contentPadding: EdgeInsets.zero,
                             hintText: 'Location',
-                            hintStyle: const TextStyle(color: Color(0xFF86BAB5), fontSize: 14, fontStyle: FontStyle.italic, fontWeight: FontWeight.w300),
+                            hintStyle: GoogleFonts.getFont('Open Sans', color: const Color(0xFF86BAB5), fontSize: 10, fontStyle: FontStyle.italic, fontWeight: FontWeight.normal),
                             filled: true,
                             suffixIcon: const Padding(
                               padding: EdgeInsets.only(left: 0, right: 20),
@@ -125,13 +126,12 @@ class _WarehouseState extends State<Warehouse> {
                   child: Row(
                     children: [
                       const SizedBox(height: 1, width: 50),
-                      const SizedBox(
+                      SizedBox(
+                        height: 120,
                         width: 300,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                          child: Text('Capacity', style: TextStyle(color: Color(0xFF138B7E), fontSize: 60, fontWeight: FontWeight.bold)),
-                        ),
+                        child: Text('Capacity', style: GoogleFonts.getFont('Playfair Display', fontWeight: FontWeight.bold, color: const Color(0xFF138B7E), fontSize: 74)),
                       ),
+                      const SizedBox(height: 1, width: 30),
                       Container(
                         height: 120,
                         width: 600,
@@ -167,7 +167,7 @@ class _WarehouseState extends State<Warehouse> {
                         width: 100,
                         child: Padding(
                           padding: EdgeInsets.symmetric(vertical: 10),
-                          child: Text('45%', style: TextStyle(color: Color(0xFF138B7E), fontSize: 50, fontWeight: FontWeight.w100)),
+                          child: Text('45%', style: TextStyle(color: Color(0xFF469597), fontSize: 50, fontWeight: FontWeight.w100)),
                         ),
                       ),
                       const SizedBox(width: 40),
@@ -184,7 +184,7 @@ class _WarehouseState extends State<Warehouse> {
                                 children: const [
                                   CircleAvatar(backgroundColor: Color(0xFFDDBEAA), radius: 11),
                                   SizedBox(width: 20),
-                                  Text('Stocks', style: TextStyle(color: Color(0xFF138B7E), fontSize: 20, fontWeight: FontWeight.bold)),
+                                  Text('Stocks', style: TextStyle(color: Color(0xFF469597), fontSize: 20, fontWeight: FontWeight.bold)),
                                 ],
                               ),
                             ),
@@ -195,7 +195,7 @@ class _WarehouseState extends State<Warehouse> {
                                 children: const [
                                   CircleAvatar(backgroundColor: Colors.white, radius: 11),
                                   SizedBox(width: 20),
-                                  Text('Available Stocks', style: TextStyle(color: Color(0xFF138B7E), fontSize: 20, fontWeight: FontWeight.bold)),
+                                  Text('Available Stocks', style: TextStyle(color: Color(0xFF469597), fontSize: 20, fontWeight: FontWeight.bold)),
                                 ],
                               ),
                             ),
@@ -218,7 +218,7 @@ class _WarehouseState extends State<Warehouse> {
                       height: 550,
                       width: 1500,
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: const Color(0xFF138B7E)),
+                        border: Border.all(width: 1, color: const Color(0xFF469597)),
                         color: Colors.transparent,
                       ),
                       child: Scrollbar(
@@ -230,73 +230,34 @@ class _WarehouseState extends State<Warehouse> {
                             DataTable(
                               headingRowHeight: 80,
                               dataRowHeight: 80,
-                              border: TableBorder.all(width: 1, color: const Color(0xFF138B7E)),
+                              headingTextStyle: GoogleFonts.getFont('Open Sans', fontWeight: FontWeight.bold, color: const Color(0xFF138B7E), fontSize: 20),
+                              dataTextStyle: GoogleFonts.getFont('Open Sans', fontWeight: FontWeight.normal, color: const Color(0xFF138B7E), fontSize: 20),
+                              border: TableBorder.all(width: 1, color: const Color(0xFF469597)),
+                              //['Generic Name', 'Brand Name', 'Quantity', 'Available Space']
                               columns: const [
-                                DataColumn(label: Expanded(child: Text('Generic Name', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.bold)))),
-                                DataColumn(label: Expanded(child: Text('Brand Name', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.bold)))),
-                                DataColumn(label: Expanded(child: Text('Quantity', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.bold)))),
-                                DataColumn(label: Expanded(child: Text('Available Space', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.bold)))),
+                                DataColumn(label: Expanded(child: Text('Generic Name', textAlign: TextAlign.center))),
+                                DataColumn(label: Expanded(child: Text('Brand Name', textAlign: TextAlign.center))),
+                                DataColumn(label: Expanded(child: Text('Quantity', textAlign: TextAlign.center))),
+                                DataColumn(label: Expanded(child: Text('Available Space', textAlign: TextAlign.center))),
                               ],
                               rows: const [
                                 DataRow(cells: [ 
-                                  DataCell(Center(child: Text('Baclufen', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('250', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('750', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
+                                  DataCell(Center(child: Text('Baclufen'))),
+                                  DataCell(Center(child: Text(''))),
+                                  DataCell(Center(child: Text('250'))),
+                                  DataCell(Center(child: Text('750'))),
                                 ]),
                                 DataRow(cells: [
-                                  DataCell(Center(child: Text('Buspirone-HCL', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('600', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('400', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
+                                  DataCell(Center(child: Text('Buspirone-HCL'))),
+                                  DataCell(Center(child: Text(''))),
+                                  DataCell(Center(child: Text('600'))),
+                                  DataCell(Center(child: Text('400'))),
                                 ]),
                                 DataRow(cells: [
-                                  DataCell(Center(child: Text('Test', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('0', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('0', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                ]),
-                                DataRow(cells: [
-                                  DataCell(Center(child: Text('Test', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('0', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('0', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                ]),
-                                DataRow(cells: [
-                                  DataCell(Center(child: Text('Test', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('0', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('0', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                ]),
-                                DataRow(cells: [
-                                  DataCell(Center(child: Text('Test', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('0', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('0', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                ]),
-                                DataRow(cells: [
-                                  DataCell(Center(child: Text('Test', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('0', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('0', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                ]),
-                                DataRow(cells: [
-                                  DataCell(Center(child: Text('Test', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('0', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('0', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                ]),
-                                DataRow(cells: [
-                                  DataCell(Center(child: Text('Test', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('0', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('0', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                ]),
-                                DataRow(cells: [
-                                  DataCell(Center(child: Text('Test', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('0', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
-                                  DataCell(Center(child: Text('0', style: TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100)))),
+                                  DataCell(Center(child: Text('Cimetidine'))),
+                                  DataCell(Center(child: Text(''))),
+                                  DataCell(Center(child: Text('500'))),
+                                  DataCell(Center(child: Text('500'))),
                                 ]),
                               ],
                             ),

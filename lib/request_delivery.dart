@@ -54,14 +54,14 @@ class _RequestDeliveryState extends State<RequestDelivery> {
                     children: [
                       const SizedBox(height: 1, width: 50),
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 50),
+                        padding: const EdgeInsets.only(bottom: 30),
                         child: SizedBox(
                           width: 60,
                           height: 60,
                           child: IconButton(
                             splashRadius: 30,
                             icon: const Icon(Icons.home, size: 40),
-                            color: const Color(0xFF138B7E),
+                            color: const Color(0xFF469597),
                             onPressed: () {
                               Navigator.pop(context);
                               Navigator.pop(context);
@@ -79,12 +79,12 @@ class _RequestDeliveryState extends State<RequestDelivery> {
                             SizedBox(
                               height: 40,
                               width: 300,
-                              child: Text('REQUEST', style: TextStyle(color: Color(0xFF138B7E), fontSize: 32, fontWeight: FontWeight.bold)),
+                              child: Text('REQUEST', style: TextStyle(color: Color(0xFF469597), fontSize: 30, fontWeight: FontWeight.bold)),
                             ),
                             SizedBox(
                               height: 40,
                               width: 300,
-                              child: Text('DELIVERY', style: TextStyle(color: Color(0xFF138B7E), fontSize: 32, fontWeight: FontWeight.bold)),
+                              child: Text('DELIVERY', style: TextStyle(color: Color(0xFF469597), fontSize: 30, fontWeight: FontWeight.bold)),
                             ),
                           ],
                         ),
@@ -97,26 +97,26 @@ class _RequestDeliveryState extends State<RequestDelivery> {
                 padding: EdgeInsets.symmetric(horizontal: 40),
                 child: Divider(color: Color(0x55138B7E), thickness: 2),
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 30),
               Container(
                 height: 550,
                 width: 1600,
                 color: Colors.transparent,
                 child: Center(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Stack(
                         children: [
                           Container(
                               width: 1300,
                               height: 300,
-                              decoration: BoxDecoration(borderRadius: const BorderRadius.all(Radius.circular(30)), color: Colors.grey.shade400),
+                              decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(30)), color: Color(0xFFD9D9D9)),
                               child: Center(
                                 child: Text(
                                     formatCurrency.format(widget.requestPrice),
                                     textAlign: TextAlign.center,
-                                    style: const TextStyle(color: Color(0xFF138B7E), fontSize: 42, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic)
+                                    style: const TextStyle(color: Color(0xFF469597), fontSize: 42, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic)
                                 ),
                               )
                           ),
@@ -126,17 +126,19 @@ class _RequestDeliveryState extends State<RequestDelivery> {
                             child: Text(
                                 'Total Items:',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(color: Color(0xFF138B7E), fontSize: 38, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic)
+                                style: TextStyle(color: Color(0xFF469597), fontSize: 38, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic)
                             ),
                           ),
                         ],
                       ),
+                      const SizedBox(height: 30),
                       Text(
                           isAdmin ? 'Are you sure to order these items from the supplier?'
                           : 'Are you sure to order these items from warehouse?',
                           textAlign: TextAlign.center,
-                          style: const TextStyle(color: Color(0xFF138B7E), fontSize: 30, fontWeight: FontWeight.w200, fontStyle: FontStyle.italic)
+                          style: const TextStyle(color: Color(0xFF469597), fontSize: 30, fontWeight: FontWeight.w200, fontStyle: FontStyle.italic)
                       ),
+                      const SizedBox(height: 30),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -155,7 +157,7 @@ class _RequestDeliveryState extends State<RequestDelivery> {
                                   child: Text(
                                       'BACK',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(color: Color(0xFF138B7E), fontSize: 20, fontWeight: FontWeight.w600)
+                                      style: TextStyle(color: Color(0xFF469597), fontSize: 20, fontWeight: FontWeight.w600)
                                   ),
                                 )
                             ),
@@ -176,7 +178,7 @@ class _RequestDeliveryState extends State<RequestDelivery> {
                                   child: Text(
                                       'CONFIRM',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(color: Color(0xFF138B7E), fontSize: 20, fontWeight: FontWeight.w600)
+                                      style: TextStyle(color: Color(0xFF469597), fontSize: 20, fontWeight: FontWeight.w600)
                                   ),
                                 )
                             ),

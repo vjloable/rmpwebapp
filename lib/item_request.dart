@@ -104,7 +104,7 @@ class _ItemRequestState extends State<ItemRequest> {
                   child: Row(
                     children: [
                       const SizedBox(height: 1, width: 50),
-                      SizedBox(height: 90, child: Align(alignment: Alignment.topCenter, child: IconButton(onPressed: (){Navigator.of(context).pop();}, icon: const Icon(Icons.arrow_back, color: Color(0xFF138B7E), size: 45), padding: EdgeInsets.zero,))),
+                      SizedBox(height: 90, child: Align(alignment: Alignment.topCenter, child: IconButton(onPressed: (){Navigator.of(context).pop();}, icon: const Icon(Icons.arrow_back, color: Color(0xFF469597), size: 45), padding: EdgeInsets.zero,))),
                       const SizedBox(height: 1, width: 50),
                       SizedBox(
                         height: 180,
@@ -115,12 +115,12 @@ class _ItemRequestState extends State<ItemRequest> {
                             const SizedBox(
                               height: 40,
                               width: 300,
-                              child: Text('ITEM', style: TextStyle(color: Color(0xFF138B7E), fontSize: 32, fontWeight: FontWeight.bold)),
+                              child: Text('ITEM', style: TextStyle(color: Color(0xFF469597), fontSize: 32, fontWeight: FontWeight.bold)),
                             ),
                             const SizedBox(
                               height: 40,
                               width: 300,
-                              child: Text('REQUEST', style: TextStyle(color: Color(0xFF138B7E), fontSize: 32, fontWeight: FontWeight.bold)),
+                              child: Text('REQUEST', style: TextStyle(color: Color(0xFF469597), fontSize: 32, fontWeight: FontWeight.bold)),
                             ),
                             SizedBox(
                               height: 40,
@@ -155,9 +155,9 @@ class _ItemRequestState extends State<ItemRequest> {
                                   Text(
                                       'Proceed to request delivery  ',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(color: Color(0xFF138B7E), decoration: TextDecoration.underline, fontSize: 20, fontWeight: FontWeight.w600)
+                                      style: TextStyle(color: Color(0xFF469597), decoration: TextDecoration.underline, fontSize: 20, fontWeight: FontWeight.w600)
                                   ),
-                                  Icon(Icons.arrow_forward_rounded, color: Color(0xFF138B7E), size: 24),
+                                  Icon(Icons.arrow_forward_rounded, color: Color(0xFF469597), size: 24),
                                 ],
                               ),
                             )
@@ -191,13 +191,22 @@ class _ItemRequestState extends State<ItemRequest> {
                               width: 80,
                               child: Column(
                                 children: [
-                                  const MouseRegion(
-                                    cursor: SystemMouseCursors.click,
-                                    child: SizedBox(
-                                      height: 80,
-                                      width: 80,
-                                      child: Center(
-                                          child: Icon(Icons.delete, color: Color(0xFFDDBEAA), size: 48)
+                                  InkWell(
+                                    splashFactory: NoSplash.splashFactory, borderRadius: const BorderRadius.all(Radius.circular(50)),
+                                    onTap: () {
+                                      setState(() {
+                                        checkVal = [false, false, false, false, false, false, false];
+                                      });
+                                    },
+                                    child: const MouseRegion(
+                                      opaque: false,
+                                      cursor: SystemMouseCursors.click,
+                                      child: SizedBox(
+                                        height: 80,
+                                        width: 80,
+                                        child: Center(
+                                            child: Icon(Icons.delete, color: Color(0xFFDDBEAA), size: 48)
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -215,9 +224,9 @@ class _ItemRequestState extends State<ItemRequest> {
                                 headingRowHeight: 80,
                                 dataRowHeight: 80,
                                 showCheckboxColumn: true,
-                                headingTextStyle: const TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.bold),
-                                dataTextStyle: const TextStyle(color: Color(0xFF138B7E), fontSize: 16, fontWeight: FontWeight.w100),
-                                border: TableBorder.all(width: 1, color: const Color(0xFF138B7E)),
+                                headingTextStyle: const TextStyle(color: Color(0xFF469597), fontSize: 16, fontWeight: FontWeight.bold),
+                                dataTextStyle: const TextStyle(color: Color(0xFF469597), fontSize: 16, fontWeight: FontWeight.w100),
+                                border: TableBorder.all(width: 1, color: const Color(0xFF469597)),
                                 columns: const [
                                   ///DataColumn(label: Expanded(child: Icon(Icons.delete, color: Color(0xFFDDBEAA), size: 48))),
                                   DataColumn(label: Expanded(child: Text('Brand Name', textAlign: TextAlign.center))),

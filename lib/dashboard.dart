@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:rmpwebapp/branches.dart';
 import 'package:rmpwebapp/delivery_status.dart';
 import 'package:rmpwebapp/item_request.dart';
@@ -34,9 +37,9 @@ Widget _dashboardUp(BuildContext context, Function callback, bool state, bool se
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     const SizedBox(height: 40),
-                    const SizedBox(width: 950, child: Padding(
-                      padding: EdgeInsets.only(left: 150),
-                      child: Text('Inventory Tab', style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),),
+                    SizedBox(width: 950, child: Padding(
+                      padding: const EdgeInsets.only(left: 150),
+                      child: Text('Inventory Tab', style: GoogleFonts.getFont('Tenor Sans', color: const Color(0xFF423d27), fontSize: 25, fontWeight: FontWeight.bold)),
                     )),
                     const SizedBox(height: 40),
                     SizedBox(
@@ -134,9 +137,9 @@ Widget _dashboardUp(BuildContext context, Function callback, bool state, bool se
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     const SizedBox(height: 40),
-                    const SizedBox(width: 950, child: Padding(
-                      padding: EdgeInsets.only(left: 150),
-                      child: Text('Item Request', style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),),
+                    SizedBox(width: 950, child: Padding(
+                      padding: const EdgeInsets.only(left: 150),
+                      child: Text('Item Request', style: GoogleFonts.getFont('Tenor Sans', color: const Color(0xFF423d27), fontSize: 25, fontWeight: FontWeight.bold)),
                     )),
                     const SizedBox(height: 40),
                     SizedBox(
@@ -212,7 +215,7 @@ Widget _dashboardUp(BuildContext context, Function callback, bool state, bool se
                           AnimatedCrossFade(
                             firstChild: SizedBox(width: 950, child: Padding(
                               padding: const EdgeInsets.only(left: 150),
-                              child: Text(state ? '' : 'Transaction and Delivery', style: const TextStyle(fontSize: 34, fontWeight: FontWeight.bold),),
+                              child: Text(state ? '' : 'Transaction and Delivery', style: GoogleFonts.getFont('Tenor Sans', color: const Color(0xFF423d27), fontSize: 25, fontWeight: FontWeight.bold)),
                             )),
                             secondChild: Container(),
                             crossFadeState: state ? CrossFadeState.showSecond : CrossFadeState.showFirst,
@@ -360,9 +363,9 @@ Widget _dashboardDown(BuildContext context){
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     const SizedBox(height: 40),
-                    const SizedBox(width: 950, child: Padding(
-                      padding: EdgeInsets.only(left: 150),
-                      child: Text('Register/Debt', style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),),
+                    SizedBox(width: 950, child: Padding(
+                      padding: const EdgeInsets.only(left: 150),
+                      child: Text('Register/Debt', style: GoogleFonts.getFont('Tenor Sans', color: const Color(0xFF423d27), fontSize: 25, fontWeight: FontWeight.bold)),
                     )),
                     const SizedBox(height: 40),
                     SizedBox(
@@ -455,134 +458,14 @@ class _DashboardState extends State<Dashboard> {
             child: FittedBox(
               alignment: Alignment.topLeft,
               fit: BoxFit.fitWidth,
-              child: Row(
+              child: Stack(
                 children: [
-                  Container(
-                    color: const Color(0xFFBBC6C8),
-                    height: 1200,
-                    width: 400,
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          width: 400,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 50, top: 60),
-                            child: Text('RM Pharmacy', style: TextStyle(color: Color(0xFF138B7E), fontSize: 30, fontWeight: FontWeight.bold)),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 400,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 50, bottom: 100),
-                            child: Text('Health Meds', style: TextStyle(color: Color(0xFF138B7E), fontSize: 30, fontWeight: FontWeight.w100)),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 90,
-                          width: 400,
-                          child: RawMaterialButton(
-                              fillColor: const Color(0xFFC4C3BF),
-                              shape: const Border(
-                                top: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
-                                bottom: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
-                                right: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
-                              ),
-                              onPressed: null,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Container(width: 30, color: const Color(0xFFB09D8A)),
-                                  const SizedBox(width: 40),
-                                  const Text('Dashboard', style: TextStyle(color: Colors.black, fontSize: 24)),
-                                ],
-                              )
-                          ),
-                        ),
-                        SizedBox(
-                          height: 90,
-                          width: 400,
-                          child: RawMaterialButton(
-                              shape: const Border(
-                                top: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
-                                bottom: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
-                                right: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
-                              ),
-                              onPressed: () {},
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Container(width: 30, color: Colors.transparent),
-                                  const SizedBox(width: 40),
-                                  const Text('Themes', style: TextStyle(color: Colors.black, fontSize: 24)),
-                                ],
-                              )
-                          ),
-                        ),
-                        SizedBox(
-                          height: 90,
-                          width: 400,
-                          child: RawMaterialButton(
-                              shape: const Border(
-                                top: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
-                                bottom: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
-                                right: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
-                              ),
-                              onPressed: () {},
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Container(width: 30, color: Colors.transparent),
-                                  const SizedBox(width: 40),
-                                  const Text('Help', style: TextStyle(color: Colors.black, fontSize: 24)),
-                                ],
-                              )
-                          ),
-                        ),
-                        SizedBox(
-                          height: 90,
-                          width: 400,
-                          child: RawMaterialButton(
-                              shape: const Border(
-                                top: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
-                                bottom: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
-                                right: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
-                              ),
-                              onPressed: () {},
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Container(width: 30, color: Colors.transparent),
-                                  const SizedBox(width: 40),
-                                  const Text('Rate AIMS', style: TextStyle(color: Colors.black, fontSize: 24)),
-                                ],
-                              )
-                          ),
-                        ),
-                        SizedBox(
-                          height: 90,
-                          width: 400,
-                          child: RawMaterialButton(
-                              shape: const Border(
-                                top: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
-                                bottom: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
-                                right: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
-                              ),
-                              onPressed: () {},
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Container(width: 30, color: Colors.transparent),
-                                  const SizedBox(width: 40),
-                                  const Text('Settings', style: TextStyle(color: Colors.black, fontSize: 24)),
-                                ],
-                              )
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Stack(
+                  Row(
                     children: [
+                      const SizedBox(
+                        height: 1200,
+                        width: 300,
+                      ),
                       Container(
                         color: const Color(0xFFE5E3E4),
                         height: 1200,
@@ -665,7 +548,8 @@ class _DashboardState extends State<Dashboard> {
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                                            child: Text((isAdmin ? 'Admin' : 'User'), style: const TextStyle(color: Color(0xFF00654F), fontSize: 14, fontWeight: FontWeight.w600, letterSpacing: 2)),
+                                            child: Text((isAdmin ? 'Admin' : 'User'),
+                                                style: const TextStyle(color: Color(0xFF00654F), fontSize: 14, fontWeight: FontWeight.w600, letterSpacing: 2)),
                                           ),
                                           const RotatedBox(quarterTurns: 3,child: Icon(Icons.arrow_back_ios_rounded, size: 12, color: Color(0xFF86BAB5))),
                                         ],
@@ -686,6 +570,7 @@ class _DashboardState extends State<Dashboard> {
                                         onPressed: () {
                                           Navigator.pop(context);
                                           Navigator.pop(context);
+                                          _isSupplierClicked = false;
                                         },
                                         child: const Icon(Icons.logout_rounded, size: 22, color: Color(0xFF86BAB5))
                                     ),
@@ -706,26 +591,157 @@ class _DashboardState extends State<Dashboard> {
                           ],
                         ),
                       ),
-                      Positioned(
-                          right: 40,
-                          top: _inUp ? 750 : 120,
-                          child: RotatedBox(
-                            quarterTurns: _inUp ? 4 : 2,
-                            child: Container(
-                              width: 120,
-                              height: 120,
-                              color: Colors.transparent,
-                              child: IconButton(
-                                icon: const Icon(Icons.arrow_drop_down_circle_rounded, size: 100, color: Color(0xAF86BAB5)),
-                                onPressed: () {
-                                  _changeDashboard();
-                                },
+                    ],
+                  ),
+                  Positioned(
+                    left: 0,
+                    child: Material(
+                      elevation: 25,
+                      shadowColor: Colors.black,
+                      child: Container(
+                        color: const Color(0xFFBBC6C8),
+                        height: 1200,
+                        width: 300,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              width: 300,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 50, top: 60),
+                                child: Text('RM Pharmacy', style: GoogleFonts.getFont('Spectral', letterSpacing: 3, color: const Color(0xFF469597), fontSize: 23, fontWeight: FontWeight.bold)),
                               ),
                             ),
-                          )
+                            SizedBox(
+                              width: 300,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 50, bottom: 100),
+                                child: Text('Health Meds', style: GoogleFonts.getFont('Spectral', letterSpacing: 2, color: const Color(0xFF469597), fontSize: 23, fontWeight: FontWeight.w200)),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 90,
+                              width: 300,
+                              child: RawMaterialButton(
+                                  fillColor: const Color(0xFFC4C3BF),
+                                  shape: const Border(
+                                    top: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
+                                    bottom: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
+                                    right: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
+                                  ),
+                                  onPressed: null,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(width: 30, color: const Color(0xFFB09D8A)),
+                                      const SizedBox(width: 40),
+                                      Text('Dashboard', style: GoogleFonts.getFont('Tenor Sans', color: const Color(0xFF000000), fontSize: 18, fontWeight: FontWeight.normal)),
+                                    ],
+                                  )
+                              ),
+                            ),
+                            SizedBox(
+                              height: 90,
+                              width: 300,
+                              child: RawMaterialButton(
+                                  shape: const Border(
+                                    top: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
+                                    bottom: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
+                                    right: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
+                                  ),
+                                  onPressed: () {},
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(width: 30, color: Colors.transparent),
+                                      const SizedBox(width: 40),
+                                      Text('Themes', style: GoogleFonts.getFont('Tenor Sans', color: const Color(0xFF000000), fontSize: 18, fontWeight: FontWeight.normal)),
+                                    ],
+                                  )
+                              ),
+                            ),
+                            SizedBox(
+                              height: 90,
+                              width: 300,
+                              child: RawMaterialButton(
+                                  shape: const Border(
+                                    top: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
+                                    bottom: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
+                                    right: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
+                                  ),
+                                  onPressed: () {},
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(width: 30, color: Colors.transparent),
+                                      const SizedBox(width: 40),
+                                      Text('Help', style: GoogleFonts.getFont('Tenor Sans', color: const Color(0xFF000000), fontSize: 18, fontWeight: FontWeight.normal)),
+                                    ],
+                                  )
+                              ),
+                            ),
+                            SizedBox(
+                              height: 90,
+                              width: 300,
+                              child: RawMaterialButton(
+                                  shape: const Border(
+                                    top: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
+                                    bottom: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
+                                    right: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
+                                  ),
+                                  onPressed: () {},
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(width: 30, color: Colors.transparent),
+                                      const SizedBox(width: 40),
+                                      Text('Rate AIMS', style: GoogleFonts.getFont('Tenor Sans', color: const Color(0xFF000000), fontSize: 18, fontWeight: FontWeight.normal)),
+                                    ],
+                                  )
+                              ),
+                            ),
+                            SizedBox(
+                              height: 90,
+                              width: 300,
+                              child: RawMaterialButton(
+                                  shape: const Border(
+                                    top: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
+                                    bottom: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
+                                    right: BorderSide(width: 0.5, color: Color(0xFFA88B71)),
+                                  ),
+                                  onPressed: () {},
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(width: 30, color: Colors.transparent),
+                                      const SizedBox(width: 40),
+                                      Text('Settings', style: GoogleFonts.getFont('Tenor Sans', color: const Color(0xFF000000), fontSize: 18, fontWeight: FontWeight.normal)),
+                                    ],
+                                  )
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
-                  )
+                    ),
+                  ),
+                  Positioned(
+                      right: 40,
+                      top: _inUp ? 750 : 120,
+                      child: RotatedBox(
+                        quarterTurns: _inUp ? 4 : 2,
+                        child: Container(
+                          width: 120,
+                          height: 120,
+                          color: Colors.transparent,
+                          child: IconButton(
+                            icon: const Icon(Icons.arrow_drop_down_circle_rounded, size: 100, color: Color(0xAF86BAB5)),
+                            onPressed: () {
+                              _changeDashboard();
+                            },
+                          ),
+                        ),
+                      )
+                  ),
                 ],
               ),
             ),
