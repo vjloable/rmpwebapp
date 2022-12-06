@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rmpwebapp/branches.dart';
 import 'package:rmpwebapp/delivery_status.dart';
 import 'package:rmpwebapp/item_request.dart';
+import 'package:rmpwebapp/reg_debt.dart';
 import 'package:rmpwebapp/stock_ordered_main.dart';
 import 'package:rmpwebapp/warehouse.dart';
 
@@ -13,7 +14,7 @@ Widget _dashboardUp(BuildContext context, Function callback, bool state){
         children: [
           Container(
             width: 1300,
-            height: 250,
+            height: 220,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(20)),
               color: Colors.white,
@@ -21,7 +22,7 @@ Widget _dashboardUp(BuildContext context, Function callback, bool state){
             child: Row(
               children: [
                 Container(
-                  height: 250,
+                  height: 220,
                   width: 350,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
@@ -94,7 +95,7 @@ Widget _dashboardUp(BuildContext context, Function callback, bool state){
         children: [
           Container(
             width: 1300,
-            height: 250,
+            height: 220,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(20)),
               color: Colors.white,
@@ -102,7 +103,7 @@ Widget _dashboardUp(BuildContext context, Function callback, bool state){
             child: Row(
               children: [
                 Container(
-                  height: 250,
+                  height: 220,
                   width: 350,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
@@ -159,7 +160,7 @@ Widget _dashboardUp(BuildContext context, Function callback, bool state){
         children: [
           Container(
             width: 1300,
-            height: 250,
+            height: 220,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(20)),
               color: Colors.white,
@@ -167,7 +168,7 @@ Widget _dashboardUp(BuildContext context, Function callback, bool state){
             child: Row(
               children: [
                 Container(
-                  height: 250,
+                  height: 220,
                   width: 350,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
@@ -178,7 +179,7 @@ Widget _dashboardUp(BuildContext context, Function callback, bool state){
                 Stack(
                   children: [
                     SizedBox(
-                      height: 250,
+                      height: 220,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -320,7 +321,7 @@ Widget _dashboardDown(BuildContext context){
         children: [
           Container(
             width: 1300,
-            height: 250,
+            height: 220,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(20)),
               color: Colors.white,
@@ -328,7 +329,7 @@ Widget _dashboardDown(BuildContext context){
             child: Row(
               children: [
                 Container(
-                  height: 250,
+                  height: 220,
                   width: 350,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
@@ -359,7 +360,7 @@ Widget _dashboardDown(BuildContext context){
                                   )
                               ),
                               onPressed: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const Warehouse()));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterDebt()));
                               },
                               child: const Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
@@ -688,7 +689,7 @@ class _DashboardState extends State<Dashboard> {
                       ),
                       Positioned(
                           right: 40,
-                          top: _inUp ? 850 : 120,
+                          top: _inUp ? 750 : 120,
                           child: RotatedBox(
                             quarterTurns: _inUp ? 4 : 2,
                             child: Container(

@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rmpwebapp/about.dart';
-import 'package:rmpwebapp/branches.dart';
-import 'package:rmpwebapp/dashboard.dart';
-import 'package:rmpwebapp/delivery_status.dart';
-import 'package:rmpwebapp/item_request.dart';
-import 'package:rmpwebapp/login.dart';
-import 'package:rmpwebapp/stock_ordered_main.dart';
+import 'package:rmpwebapp/reg_debt.dart';
 
 Future<void> main() async {
   runApp(const MyApp());
