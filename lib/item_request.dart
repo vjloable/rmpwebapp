@@ -39,7 +39,8 @@ class NewDataRow{
 }
 
 class ItemRequest extends StatefulWidget {
-  const ItemRequest({Key? key}) : super(key: key);
+  final String session;
+  const ItemRequest({required this.session, Key? key}) : super(key: key);
 
   @override
   State<ItemRequest> createState() => _ItemRequestState();
@@ -54,11 +55,21 @@ class _ItemRequestState extends State<ItemRequest> {
   List<double> quantityValB = [100, 500, 250, 600, 0, 0, 0];
   List<double> percostVal = [30, 20, 15, 12.35, 0, 0, 0];
   late double totalPrice = 0;
+  bool isAdmin = false;
 
   @override
   void initState() {
     changeTotal();
+    verifySession();
     super.initState();
+  }
+
+  void verifySession(){
+    if(widget.session == 'admin'){
+      isAdmin = true;
+    }else if(widget.session == 'user'){
+      isAdmin = false;
+    }
   }
 
   void refresh(int x, double y){setState(() {quantityValA[x] = y; changeTotal();});}
@@ -135,7 +146,7 @@ class _ItemRequestState extends State<ItemRequest> {
                                 )
                             ),
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => RequestDelivery(requestPrice: totalPrice)));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => RequestDelivery(requestPrice: totalPrice, session: isAdmin ? 'admin' : 'user')));
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),

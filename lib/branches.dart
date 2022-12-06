@@ -46,7 +46,8 @@ Widget _barData({required String text, required double front, required double ba
 }
 
 class Branches extends StatefulWidget {
-  const Branches({Key? key}) : super(key: key);
+  final String session;
+  const Branches({required this.session, Key? key}) : super(key: key);
 
   @override
   State<Branches> createState() => _BranchesState();
@@ -54,6 +55,21 @@ class Branches extends StatefulWidget {
 
 class _BranchesState extends State<Branches> {
   final _scrollController = ScrollController();
+  bool isAdmin = false;
+
+  @override
+  void initState() {
+    verifySession();
+    super.initState();
+  }
+
+  void verifySession(){
+    if(widget.session == 'admin'){
+      isAdmin = true;
+    }else if(widget.session == 'user'){
+      isAdmin = false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -307,12 +323,12 @@ class _BranchesState extends State<Branches> {
                                 child: SfRadialGauge(
                                     axes: <RadialAxis>[
                                       RadialAxis(minimum: 0, maximum: 100,
-                                          pointers: const <GaugePointer>[
+                                          pointers: <GaugePointer>[
                                             RangePointer(
-                                              value: 67,
+                                              value: isAdmin ? 67 : 56,
                                               width: 60,
                                               cornerStyle: CornerStyle.bothCurve,
-                                              color: Color(0xFFDDBEAA),
+                                              color: const Color(0xFFDDBEAA),
                                             )
                                           ],
                                           showLabels: false,
@@ -329,10 +345,10 @@ class _BranchesState extends State<Branches> {
                                 ),
                               ),
                             ),
-                            const SizedBox(
+                            SizedBox(
                               width: 500,
                               height: 400,
-                              child: Center(child: Text('67%',textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF138B7E), fontSize: 100,fontWeight:FontWeight.w300))),
+                              child: Center(child: Text(isAdmin ? '67%' : '56%',textAlign: TextAlign.center, style: const TextStyle(color: Color(0xFF138B7E), fontSize: 100,fontWeight:FontWeight.w300))),
                             ),
                             const Positioned(top: 285, child: SizedBox(width: 500, height: 150, child: VerticalDivider(color: Color(0xFF138B7E)))),
                             Align(

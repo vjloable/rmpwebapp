@@ -5,13 +5,29 @@ final formatCurrency = NumberFormat.currency(symbol: '₱');
 
 class RequestDelivery extends StatefulWidget {
   final double requestPrice;
-  const RequestDelivery({required this.requestPrice, Key? key}) : super(key: key);
+  final String session;
+  const RequestDelivery({required this.requestPrice, required this.session, Key? key}) : super(key: key);
 
   @override
   State<RequestDelivery> createState() => _RequestDeliveryState();
 }
 
 class _RequestDeliveryState extends State<RequestDelivery> {
+  bool isAdmin = false;
+
+  @override
+  void initState() {
+    verifySession();
+    super.initState();
+  }
+
+  void verifySession(){
+    if(widget.session == 'admin'){
+      isAdmin = true;
+    }else if(widget.session == 'user'){
+      isAdmin = false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,10 +131,11 @@ class _RequestDeliveryState extends State<RequestDelivery> {
                           ),
                         ],
                       ),
-                      const Text(
-                          'Are you sure to order these items from the supplier?',
+                      Text(
+                          isAdmin ? 'Are you sure to order these items from the supplier?'
+                          : 'Are you sure to order these items from warehouse?',
                           textAlign: TextAlign.center,
-                          style: TextStyle(color: Color(0xFF138B7E), fontSize: 30, fontWeight: FontWeight.w200, fontStyle: FontStyle.italic)
+                          style: const TextStyle(color: Color(0xFF138B7E), fontSize: 30, fontWeight: FontWeight.w200, fontStyle: FontStyle.italic)
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,

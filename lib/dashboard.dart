@@ -6,7 +6,7 @@ import 'package:rmpwebapp/reg_debt.dart';
 import 'package:rmpwebapp/stock_ordered_main.dart';
 import 'package:rmpwebapp/warehouse.dart';
 
-Widget _dashboardUp(BuildContext context, Function callback, bool state){
+Widget _dashboardUp(BuildContext context, Function callback, bool state, bool session){
   return Column(
     mainAxisAlignment: MainAxisAlignment.start,
     children: [
@@ -43,7 +43,8 @@ Widget _dashboardUp(BuildContext context, Function callback, bool state){
                       width: 950,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
+                        children: session ?
+                        [
                           const SizedBox(width: 150),
                           ElevatedButton(
                               style: ElevatedButton.styleFrom(
@@ -69,11 +70,29 @@ Widget _dashboardUp(BuildContext context, Function callback, bool state){
                                   )
                               ),
                               onPressed: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const Branches()));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const Branches(session: 'admin')));
                               },
                               child: const Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
                                 child: SizedBox(width: 150, child: Text('Branches Inventory', textAlign: TextAlign.center, style: TextStyle(fontSize: 16))),
+                              )
+                          ),
+                        ] :
+                        [
+                          const SizedBox(width: 150),
+                          ElevatedButton  (
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xFFDDBEAA),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50.0)
+                                  )
+                              ),
+                              onPressed: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const Branches(session: 'user')));
+                              },
+                              child: const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
+                                child: SizedBox(width: 150, child: Text('Open', textAlign: TextAlign.center, style: TextStyle(fontSize: 16))),
                               )
                           ),
                         ],
@@ -134,7 +153,7 @@ Widget _dashboardUp(BuildContext context, Function callback, bool state){
                                   )
                               ),
                               onPressed: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const ItemRequest()));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => ItemRequest(session: session ? 'admin' : 'user')));
                               },
                               child: const Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
@@ -249,7 +268,7 @@ Widget _dashboardUp(BuildContext context, Function callback, bool state){
                       ),
                     ),
                     Positioned(
-                      top: 100,
+                      top: 90,
                       left: 155,
                       child: AnimatedCrossFade(
                         firstChild: const SizedBox(height: 0),
@@ -270,12 +289,12 @@ Widget _dashboardUp(BuildContext context, Function callback, bool state){
                                     child: Row(
                                       children: const [
                                         Icon(Icons.arrow_forward_ios_rounded, color: Color(0xFFDDBEAA)),
-                                        Text('  Stock Ordered', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold)),
+                                        Text('  Stock Ordered', style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold)),
                                       ],
                                     ),
                                   ),
                                 ),
-                                const Divider(height: 10, color: Color(0xFFDDBEAA), thickness: 1),
+                                const Divider(height: 5, color: Color(0xFFDDBEAA), thickness: 1),
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: TextButton(
@@ -285,7 +304,7 @@ Widget _dashboardUp(BuildContext context, Function callback, bool state){
                                     child: Row(
                                       children: const [
                                         Icon(Icons.arrow_forward_ios_rounded, color: Color(0xFFDDBEAA)),
-                                        Text('  Delivery Status', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold)),
+                                        Text('  Delivery Status', style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold)),
                                       ],
                                     ),
                                   ),
@@ -676,7 +695,7 @@ class _DashboardState extends State<Dashboard> {
                             Padding(
                               padding: const EdgeInsets.only(top: 40),
                               child: AnimatedCrossFade(
-                                  firstChild: _dashboardUp(context, _clickSupplier, _isSupplierClicked),
+                                  firstChild: _dashboardUp(context, _clickSupplier, _isSupplierClicked, isAdmin),
                                   secondChild: _dashboardDown(context),
                                   crossFadeState: _inUp ? CrossFadeState.showFirst : CrossFadeState.showSecond,
                                   firstCurve: Curves.easeIn,
