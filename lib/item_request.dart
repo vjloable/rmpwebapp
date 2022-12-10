@@ -7,10 +7,10 @@ final formatCurrency = NumberFormat.currency(symbol: '₱');
 class NewDataRow{
   late bool value = false;
   final String brand, generic;
-  late double quantity, pcost, min;
+  late double quantity, pcost, tcost, min;
   late int position;
   final void Function(int x, double y) callback;
-  NewDataRow({required this.brand, required this.generic, required this.quantity, required this.pcost, required this.callback, required this.position, required this.min});
+  NewDataRow({required this.brand, required this.generic, required this.quantity, required this.pcost, required this.tcost, required this.callback, required this.position, required this.min});
 
   DataRow generate() {
     return DataRow(
@@ -19,20 +19,21 @@ class NewDataRow{
           DataCell(Center(child: Text(generic))),
           DataCell(
               Center(
-                  child: Row(
+                child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       (quantity > min) ? SizedBox(height: 45, width: 45, child: ElevatedButton(style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.brown), shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50))))),
-                          onPressed: (){(quantity > min) ? callback(position, --quantity,) : callback(position, quantity);}, child: const Text('-', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold))))
+                          onPressed: (){(quantity > min) ? callback(position, (quantity-50),) : callback(position, quantity);}, child: const Text('-', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold))))
                       : Container(height: 45, width: 45, decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(50)), color: Color(0xFFDDBEAA)), child: const Center(child: Text('-', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)))),
-                      Text(quantity.toString()),
+                      SizedBox(width: 160, child: Center(child: Text(quantity.toString()))),
                       SizedBox(height: 45, width: 45, child: ElevatedButton(style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.brown), shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50))))),
-                          onPressed: (){callback(position, ++quantity); }, child: const Text('+', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)))),
+                          onPressed: (){callback(position, (quantity)+50); }, child: const Text('+', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)))),
                     ],
-                  )
+                  ),
               )
           ),
           DataCell(Center(child: Text(formatCurrency.format(pcost)))),
+          DataCell(Center(child: SizedBox(width: 160, child: Center(child: Text(formatCurrency.format(tcost)))))),
         ]
     );
   }
@@ -48,12 +49,13 @@ class ItemRequest extends StatefulWidget {
 
 class _ItemRequestState extends State<ItemRequest> {
   final _scrollController = ScrollController();
-  List<bool> checkVal = [false, false, false, false, false, false, false];
-  List<String> generic = ['GEN-Baclofen', 'GEN-Buspirone', 'GEN-Cimetidine', 'GEN-Pindolol', '-', '-', '-'];
-  List<String> brands = ['Baclofen', 'Buspirone-HCL', 'Cimetidine', 'Pindolol', '-', '-', '-'];
-  List<double> quantityValA = [100, 500, 250, 600, 0, 0, 0];
-  List<double> quantityValB = [100, 500, 250, 600, 0, 0, 0];
-  List<double> percostVal = [30, 20, 15, 12.35, 0, 0, 0];
+  List<String> generic = ['GEN-Baclofen', 'GEN-Buspirone', 'GEN-Cimetidine'];
+  List<String> brands = ['Baclofen', 'Buspirone-HCL', 'Cimetidine'];
+  List<double> quantityValA = [0, 0, 0];
+  List<double> quantityValB = [0, 0, 0];
+  List<double> percostVal = [30, 20, 15];
+  List<double> tcost = [0, 0, 0];
+
   late double totalPrice = 0;
   bool isAdmin = false;
 
@@ -72,7 +74,13 @@ class _ItemRequestState extends State<ItemRequest> {
     }
   }
 
-  void refresh(int x, double y){setState(() {quantityValA[x] = y; changeTotal();});}
+  void refresh(int x, double y){
+    setState(() {
+      quantityValA[x] = y;
+      changeTotal();
+      tcost[x] = quantityValA[x] * percostVal[x];
+    });
+  }
   void changeTotal(){
     totalPrice = 0;
     for(int i = 0; i < quantityValA.length; i++){
@@ -187,6 +195,7 @@ class _ItemRequestState extends State<ItemRequest> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            /*
                             SizedBox(
                               width: 80,
                               child: Column(
@@ -217,6 +226,7 @@ class _ItemRequestState extends State<ItemRequest> {
                                 ],
                               ),
                             ),
+                            */
                             SizedBox(
                               height: 650,
                               width: 1400,
@@ -228,13 +238,13 @@ class _ItemRequestState extends State<ItemRequest> {
                                 dataTextStyle: const TextStyle(color: Color(0xFF469597), fontSize: 16, fontWeight: FontWeight.w100),
                                 border: TableBorder.all(width: 1, color: const Color(0xFF469597)),
                                 columns: const [
-                                  ///DataColumn(label: Expanded(child: Icon(Icons.delete, color: Color(0xFFDDBEAA), size: 48))),
                                   DataColumn(label: Expanded(child: Text('Brand Name', textAlign: TextAlign.center))),
                                   DataColumn(label: Expanded(child: Text('Generic Name', textAlign: TextAlign.center))),
                                   DataColumn(label: Expanded(child: Text('Quantity', textAlign: TextAlign.center))),
                                   DataColumn(label: Expanded(child: Text('Per Cost', textAlign: TextAlign.center))),
+                                  DataColumn(label: Expanded(child: Text('Total Cost', textAlign: TextAlign.center))),
                                 ],
-                                rows: List.generate(quantityValA.length, (index) => NewDataRow(brand: brands[index], generic: generic[index], quantity: quantityValA[index], pcost: percostVal[index], callback: refresh, position: index, min: quantityValB[index]).generate(),)
+                                rows: List.generate(quantityValA.length, (index) => NewDataRow(brand: brands[index], generic: generic[index], quantity: quantityValA[index], pcost: percostVal[index], tcost: tcost[index], callback: refresh, position: index, min: quantityValB[index]).generate(),)
                               ),
                             ),
                           ],

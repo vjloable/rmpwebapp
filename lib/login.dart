@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rmpwebapp/auth.dart';
 import 'package:rmpwebapp/dashboard.dart';
+
 
 class Login extends StatefulWidget {
   final String session;
@@ -11,10 +13,14 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  late TextEditingController emailTC = TextEditingController();
+  late TextEditingController passwordTC = TextEditingController();
   bool isAdmin = false;
+
   @override
   void initState() {
     verifySession();
+    resetForm();
     super.initState();
   }
 
@@ -24,6 +30,13 @@ class _LoginState extends State<Login> {
     }else if(widget.session == 'user'){
       isAdmin = false;
     }
+  }
+
+  void resetForm(){
+    setState(() {
+      emailTC.clear();
+      passwordTC.clear();
+    });
   }
 
   @override
@@ -59,25 +72,25 @@ class _LoginState extends State<Login> {
                         borderRadius: BorderRadius.all(Radius.circular(30)),
                         color: Color(0xFFBBC6C8),
                       ),
-                      height: 450,
+                      height: isAdmin ? 320 : 450,
                       width: 650,
                       child: Column(
                         children: [
-                          const SizedBox(height: 40),
-                          Row(
+                          isAdmin ? const SizedBox(height: 0) : const SizedBox(height: 40),
+                          isAdmin ? Container() : Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(
-                                width: isAdmin ? 130 : 75,
+                                width: 75,
                                 child: Padding(
                                   padding: const EdgeInsets.only(bottom: 14),
-                                  child: Text((isAdmin ? 'HQ/Warehouse:' : 'Branches:'), textAlign: TextAlign.left, style: GoogleFonts.getFont('Montserrat', fontWeight: FontWeight.normal, color: const Color(0xFF469597), fontSize: 15)),
+                                  child: Text(('Branches:'), textAlign: TextAlign.left, style: GoogleFonts.getFont('Montserrat', fontWeight: FontWeight.normal, color: const Color(0xFF469597), fontSize: 15)),
                                 ),
                               ),
                               const SizedBox(width: 30),
                               SizedBox(
                                 height: 60,
-                                width: isAdmin ? 380 : 440,
+                                width: 440,
                                 child: TextFormField(
                                   cursorColor: Colors.black,
                                   keyboardType: TextInputType.text,
@@ -122,7 +135,7 @@ class _LoginState extends State<Login> {
                                 width: 130,
                                 child: Padding(
                                   padding: const EdgeInsets.only(bottom: 14),
-                                  child: Text('USERNAME', textAlign: TextAlign.left, style: GoogleFonts.getFont('Montserrat', fontWeight: FontWeight.bold, color: const Color(0xFF469597), fontSize: 16.4, letterSpacing: 3)),
+                                  child: Text('E-MAIL', textAlign: TextAlign.left, style: GoogleFonts.getFont('Montserrat', fontWeight: FontWeight.bold, color: const Color(0xFF469597), fontSize: 16.4, letterSpacing: 3)),
                                 ),
                               ),
                               const SizedBox(width: 30),
@@ -132,6 +145,7 @@ class _LoginState extends State<Login> {
                                 child: TextFormField(
                                   cursorColor: Colors.black,
                                   keyboardType: TextInputType.text,
+                                  controller: emailTC,
                                   decoration: InputDecoration(
                                     fillColor: const Color(0xFFE5E3E4),
                                     border: OutlineInputBorder(
@@ -182,6 +196,7 @@ class _LoginState extends State<Login> {
                                   autocorrect: false,
                                   cursorColor: Colors.black,
                                   keyboardType: TextInputType.text,
+                                  controller: passwordTC,
                                   decoration: InputDecoration(
                                     fillColor: const Color(0xFFE5E3E4),
                                     border: OutlineInputBorder(
@@ -211,16 +226,17 @@ class _LoginState extends State<Login> {
                               ),
                             ],
                           ),
+                          /*
                           SizedBox(height: 30, width: 560,
                               child: MouseRegion(
                                   cursor: SystemMouseCursors.click,
                                   child: Text(
-                                      'Forgot password?',
-                                      textAlign: TextAlign.right,
-                                      style: GoogleFonts.getFont('Montserrat', fontWeight: FontWeight.bold, color: Colors.grey, fontSize: 12, decoration: TextDecoration.underline, fontStyle: FontStyle.italic),
+                                    'Forgot password?',
+                                    textAlign: TextAlign.right,
+                                    style: GoogleFonts.getFont('Montserrat', fontWeight: FontWeight.bold, color: Colors.grey, fontSize: 12, decoration: TextDecoration.underline, fontStyle: FontStyle.italic),
                                   )
                               )
-                          ),
+                          ),*/
                           const SizedBox(height: 30),
                           SizedBox(
                               height: 50,
@@ -253,7 +269,13 @@ class _LoginState extends State<Login> {
                                           shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50))))
                                       ),
                                       onPressed: (){
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard(session: widget.session,)));
+                                        Map<String, String> cred = AuthService().signIn(emailTC.text, passwordTC.text, widget.session);
+                                        if(cred.isNotEmpty){
+                                          Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard(session: cred.keys.first)));
+                                        }else{
+                                          print('Invalid credentials');
+                                        }
+                                        resetForm();
                                       },
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(vertical: 10.0),

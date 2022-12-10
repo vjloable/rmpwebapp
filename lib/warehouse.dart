@@ -1,5 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rmpwebapp/database.dart';
+
+class NewDataRow{
+  final String brand, generic;
+  late int quantity, aspace;
+  NewDataRow({required this.generic, required this.brand, required this.quantity, required this.aspace});
+
+  DataRow generate() {
+    return DataRow(
+        cells: [
+          DataCell(Center(child: Text(generic))),
+          DataCell(Center(child: Text(brand))),
+          DataCell(Center(child: Text(quantity.toString()))),
+          DataCell(Center(child: Text(aspace.toString()))),
+        ]
+    );
+  }
+}
 
 class Warehouse extends StatefulWidget {
   const Warehouse({Key? key}) : super(key: key);
@@ -10,6 +28,32 @@ class Warehouse extends StatefulWidget {
 
 class _WarehouseState extends State<Warehouse> {
   final _scrollController = ScrollController();
+  List<String> generic = ['GEN-Baclofen', 'GEN-Buspirone', 'GEN-Cimetidine'];
+  List<String> brands = ['Baclofen', 'Buspirone-HCL', 'Cimetidine'];
+
+  int aspaceTotal = 0;
+  int quantityTotal = 0;
+
+  @override
+  void initState() {
+    updateAspaceTotal();
+    updateQuantityTotal();
+    super.initState();
+  }
+
+  void updateAspaceTotal(){
+    aspaceTotal = 0;
+    for(int i=0; i<Database.admin[1].length; i++){
+      aspaceTotal += Database.admin[1][i] as int;
+    }
+  }
+
+  void updateQuantityTotal(){
+    quantityTotal = 0;
+    for(int i=0; i<Database.admin[0].length; i++){
+      quantityTotal += Database.admin[0][i] as int;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +109,7 @@ class _WarehouseState extends State<Warehouse> {
                           ],
                         ),
                       ),
+                      /*
                       const SizedBox(height: 1, width: 700),
                       TextButton(
                           onPressed: () {},
@@ -116,6 +161,7 @@ class _WarehouseState extends State<Warehouse> {
                           ),
                         ),
                       ),
+                      */
                     ],
                   )
               ),
@@ -129,7 +175,7 @@ class _WarehouseState extends State<Warehouse> {
                       SizedBox(
                         height: 120,
                         width: 300,
-                        child: Text('Capacity', style: GoogleFonts.getFont('Playfair Display', fontWeight: FontWeight.bold, color: const Color(0xFF138B7E), fontSize: 74)),
+                        child: FittedBox(fit: BoxFit.scaleDown, child: Text('Capacity', style: GoogleFonts.getFont('Playfair Display', fontWeight: FontWeight.bold, color: const Color(0xFF138B7E), fontSize: 74))),
                       ),
                       const SizedBox(height: 1, width: 30),
                       Container(
@@ -151,7 +197,7 @@ class _WarehouseState extends State<Warehouse> {
                                   left: 0,
                                   child: Container(
                                     height: 60,
-                                    width: 250,
+                                    width: (600 * (quantityTotal/aspaceTotal)).floorToDouble(),
                                     decoration: const BoxDecoration(
                                       borderRadius: BorderRadius.all(Radius.circular(50)),
                                       color: Color(0xFFDDBEAA),
@@ -163,11 +209,11 @@ class _WarehouseState extends State<Warehouse> {
                         ),
                       ),
                       const SizedBox(width: 40),
-                      const SizedBox(
+                      SizedBox(
                         width: 100,
                         child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                          child: Text('45%', style: TextStyle(color: Color(0xFF469597), fontSize: 50, fontWeight: FontWeight.w100)),
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: FittedBox(fit: BoxFit.scaleDown, child: Text('${((quantityTotal/aspaceTotal)*100).floorToDouble()}%', style: const TextStyle(color: Color(0xFF469597), fontSize: 50, fontWeight: FontWeight.w100))),
                         ),
                       ),
                       const SizedBox(width: 40),
@@ -240,8 +286,9 @@ class _WarehouseState extends State<Warehouse> {
                                 DataColumn(label: Expanded(child: Text('Quantity', textAlign: TextAlign.center))),
                                 DataColumn(label: Expanded(child: Text('Available Space', textAlign: TextAlign.center))),
                               ],
-                              rows: const [
-                                DataRow(cells: [ 
+                              rows: List.generate(brands.length, (index) => NewDataRow(generic: generic[index], brand: brands[index], quantity: Database.admin[0][index], aspace: Database.admin[1][index]).generate()),
+                              /*rows: const [
+                                DataRow(cells: [
                                   DataCell(Center(child: Text('Baclufen'))),
                                   DataCell(Center(child: Text(''))),
                                   DataCell(Center(child: Text('250'))),
@@ -258,8 +305,7 @@ class _WarehouseState extends State<Warehouse> {
                                   DataCell(Center(child: Text(''))),
                                   DataCell(Center(child: Text('500'))),
                                   DataCell(Center(child: Text('500'))),
-                                ]),
-                              ],
+                                ]),*/
                             ),
                           ],
                         ),
