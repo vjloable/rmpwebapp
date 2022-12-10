@@ -365,7 +365,7 @@ Widget _dashboardDown(BuildContext context){
                     const SizedBox(height: 40),
                     SizedBox(width: 950, child: Padding(
                       padding: const EdgeInsets.only(left: 150),
-                      child: Text('Register/Debt', style: GoogleFonts.getFont('Tenor Sans', color: const Color(0xFF423d27), fontSize: 25, fontWeight: FontWeight.bold)),
+                      child: Text('Register/Debit', style: GoogleFonts.getFont('Tenor Sans', color: const Color(0xFF423d27), fontSize: 25, fontWeight: FontWeight.bold)),
                     )),
                     const SizedBox(height: 40),
                     SizedBox(

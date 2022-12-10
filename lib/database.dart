@@ -5,8 +5,8 @@ class Database{
   ];
 
   static List<dynamic> ilig1 = [
-    [3000, 4000, 3000], // quantity
-    [3000, 4000, 3000], // aspace
+    [1100, 3400, 3000], // quantity
+    [3000, 4000, 5000], // aspace
     []
   ];
 
