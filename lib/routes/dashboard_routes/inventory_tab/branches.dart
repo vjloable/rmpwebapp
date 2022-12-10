@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rmpwebapp/database.dart';
 import 'package:intl/intl.dart';
+import 'package:rmpwebapp/routes/dashboard_routes/inventory_tab/manage_inventory.dart';
+import 'package:rmpwebapp/structures/database.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 final formatNum = NumberFormat.currency(symbol: '');
@@ -52,7 +53,8 @@ Widget _barData({required String text, required double front, required double ba
 
 class Branches extends StatefulWidget {
   final String session;
-  const Branches({required this.session, Key? key}) : super(key: key);
+  final Map<String, String> credentials;
+  const Branches({required this.session, required this.credentials, Key? key}) : super(key: key);
 
   @override
   State<Branches> createState() => _BranchesState();
@@ -63,7 +65,7 @@ class _BranchesState extends State<Branches> {
   bool isAdmin = false;
   int aspaceTotal = 0;
   int quantityTotal = 0;
-  late List<dynamic> fetchedUser = Database.ilig1;
+  List<dynamic> fetchedUser = Database.ilig1;
 
   @override
   void initState() {
@@ -98,16 +100,30 @@ class _BranchesState extends State<Branches> {
 
   void updateGraph(){
     setState(() {
-      if(dropdownvalue == items[0]){
-        fetchedUser = Database.ilig1;
-      }else if(dropdownvalue == items[1]){
-        fetchedUser = Database.ilig2;
-      }else if(dropdownvalue == items[2]){
-        fetchedUser = Database.kapat;
-      }else if(dropdownvalue == items[3]){
-        fetchedUser = Database.maran;
-      }else if(dropdownvalue == items[4]){
-        fetchedUser = Database.auro;
+      if(isAdmin){
+        if(dropdownvalue == items[0]){
+          fetchedUser = Database.ilig1;
+        }else if(dropdownvalue == items[1]){
+          fetchedUser = Database.ilig2;
+        }else if(dropdownvalue == items[2]){
+          fetchedUser = Database.kapat;
+        }else if(dropdownvalue == items[3]){
+          fetchedUser = Database.maran;
+        }else if(dropdownvalue == items[4]){
+          fetchedUser = Database.auro;
+        }
+      }else{
+        if(widget.credentials.values.first == 'Iligan 1'){
+          fetchedUser = Database.ilig1;
+        }else if(widget.credentials.values.first == 'Iligan 2'){
+          fetchedUser = Database.ilig2;
+        }else if(widget.credentials.values.first == 'Kapatagan'){
+          fetchedUser = Database.kapat;
+        }else if(widget.credentials.values.first == 'Maranding'){
+          fetchedUser = Database.maran;
+        }else if(widget.credentials.values.first == 'Aurora'){
+          fetchedUser = Database.auro;
+        }
       }
       updateQuantityTotal();
       updateAspaceTotal();
@@ -191,7 +207,8 @@ class _BranchesState extends State<Branches> {
                       SizedBox(
                         height: 60,
                         width: 350,
-                        child: DropdownButton(
+                        child:
+                        isAdmin ? DropdownButton(
                           style: GoogleFonts.getFont('Open Sans', color: const Color(0xFF86BAB5), fontSize: 14, fontStyle: FontStyle.italic, fontWeight: FontWeight.w600),
                           isExpanded: true,
                           value: dropdownvalue,
@@ -209,47 +226,14 @@ class _BranchesState extends State<Branches> {
                               updateGraph();
                             });
                           },
-                        ),
-                        /*
-                        child: TextFormField(
-                          cursorColor: Colors.black,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            fillColor: Colors.white,
-                            prefixIcon: const Padding(
-                              padding: EdgeInsets.only(left: 30, right: 10),
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(50),
-                              borderSide: const BorderSide(
-                                  color: Colors.transparent, width: 1
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(50),
-                              borderSide: const BorderSide(
-                                  color: Colors.transparent, width: 1
-                              ),
-                            ),
-                            enabledBorder:  OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(50),
-                              borderSide: const BorderSide(
-                                  color: Colors.transparent, width: 1
-                              ),
-                            ),
-                            errorBorder: InputBorder.none,
-                            disabledBorder: InputBorder.none,
-                            contentPadding: EdgeInsets.zero,
-                            hintText: 'Iligan Branch',
-                            hintStyle: GoogleFonts.getFont('Open Sans', color: const Color(0xFF86BAB5), fontSize: 10, fontStyle: FontStyle.italic, fontWeight: FontWeight.normal),
-                            filled: true,
-                            suffixIcon: const Padding(
-                              padding: EdgeInsets.only(left: 0, right: 20),
-                              child: RotatedBox(quarterTurns: 3,child: Icon(Icons.arrow_back_ios_rounded, size: 12, color: Color(0xFF86BAB5))),
-                            ),
+                        )
+                        : Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            widget.credentials.values.first,
+                            style: GoogleFonts.getFont('Open Sans', color: const Color(0xFF86BAB5), fontSize: 14, fontStyle: FontStyle.italic, fontWeight: FontWeight.w600),
                           ),
-                        ),
-                        */
+                        )
                       ),
                     ],
                   )
@@ -461,7 +445,44 @@ class _BranchesState extends State<Branches> {
                                   ],
                                 ),
                               ),
-                            )
+                            ),
+                            Positioned(
+                              bottom: 50,
+                              right: 117,
+                              child: SizedBox(
+                                width: 500,
+                                height: 100,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 50),
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: SizedBox(
+                                      width: 170,
+                                      height: 40,
+                                      child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                              backgroundColor: const Color(0xFFDDBEAA),
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(50.0)
+                                              )
+                                          ),
+                                          onPressed: () {
+                                            Navigator.push(context, MaterialPageRoute(builder: (context) => ManageInventory(credentials: widget.credentials, session: widget.session)));
+                                          },
+                                          child: const Padding(
+                                            padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                                            child: Text(
+                                                'Manage Inventory',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(color: Color(0xFF469597), decoration: TextDecoration.underline, fontSize: 12, fontWeight: FontWeight.w600)
+                                            ),
+                                          )
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),

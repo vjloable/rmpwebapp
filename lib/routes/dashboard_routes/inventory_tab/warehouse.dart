@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rmpwebapp/database.dart';
+import 'package:rmpwebapp/routes/dashboard_routes/inventory_tab/manage_inventory.dart';
+import 'package:rmpwebapp/structures/database.dart';
 
 class NewDataRow{
   final String brand, generic;
@@ -20,7 +21,9 @@ class NewDataRow{
 }
 
 class Warehouse extends StatefulWidget {
-  const Warehouse({Key? key}) : super(key: key);
+  final String session;
+  final Map<String, String> credentials;
+  const Warehouse({required this.session, required this.credentials, Key? key}) : super(key: key);
 
   @override
   State<Warehouse> createState() => _WarehouseState();
@@ -109,59 +112,6 @@ class _WarehouseState extends State<Warehouse> {
                           ],
                         ),
                       ),
-                      /*
-                      const SizedBox(height: 1, width: 700),
-                      TextButton(
-                          onPressed: () {},
-                          child: const Padding(
-                            padding: EdgeInsets.only(bottom: 20, top: 10),
-                            child: Icon(Icons.pin_drop, size: 40, color: Color(0xFF86BAB5)),
-                          )
-                      ),
-                      const SizedBox(height: 1, width: 10),
-                      SizedBox(
-                        height: 60,
-                        width: 400,
-                        child: TextFormField(
-                          cursorColor: Colors.black,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            fillColor: Colors.white,
-                            prefixIcon: const Padding(
-                              padding: EdgeInsets.only(left: 30, right: 10),
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(50),
-                              borderSide: const BorderSide(
-                                  color: Colors.transparent, width: 1
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(50),
-                              borderSide: const BorderSide(
-                                  color: Colors.transparent, width: 1
-                              ),
-                            ),
-                            enabledBorder:  OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(50),
-                              borderSide: const BorderSide(
-                                  color: Colors.transparent, width: 1
-                              ),
-                            ),
-                            errorBorder: InputBorder.none,
-                            disabledBorder: InputBorder.none,
-                            contentPadding: EdgeInsets.zero,
-                            hintText: 'Location',
-                            hintStyle: GoogleFonts.getFont('Open Sans', color: const Color(0xFF86BAB5), fontSize: 10, fontStyle: FontStyle.italic, fontWeight: FontWeight.normal),
-                            filled: true,
-                            suffixIcon: const Padding(
-                              padding: EdgeInsets.only(left: 0, right: 20),
-                              child: RotatedBox(quarterTurns: 3,child: Icon(Icons.arrow_back_ios_rounded, size: 12, color: Color(0xFF86BAB5))),
-                            ),
-                          ),
-                        ),
-                      ),
-                      */
                     ],
                   )
               ),
@@ -252,7 +202,7 @@ class _WarehouseState extends State<Warehouse> {
                   )
               ),
               Container(
-                height: 980,
+                height: 460,
                 width: 1600,
                 color: Colors.transparent,
                 child: Padding(
@@ -261,7 +211,7 @@ class _WarehouseState extends State<Warehouse> {
                     alignment: Alignment.topCenter,
                     fit: BoxFit.fitWidth,
                     child: Container(
-                      height: 550,
+                      height: 450,
                       width: 1500,
                       decoration: BoxDecoration(
                         border: Border.all(width: 1, color: const Color(0xFF469597)),
@@ -287,25 +237,6 @@ class _WarehouseState extends State<Warehouse> {
                                 DataColumn(label: Expanded(child: Text('Available Space', textAlign: TextAlign.center))),
                               ],
                               rows: List.generate(brands.length, (index) => NewDataRow(generic: generic[index], brand: brands[index], quantity: Database.admin[0][index], aspace: Database.admin[1][index]).generate()),
-                              /*rows: const [
-                                DataRow(cells: [
-                                  DataCell(Center(child: Text('Baclufen'))),
-                                  DataCell(Center(child: Text(''))),
-                                  DataCell(Center(child: Text('250'))),
-                                  DataCell(Center(child: Text('750'))),
-                                ]),
-                                DataRow(cells: [
-                                  DataCell(Center(child: Text('Buspirone-HCL'))),
-                                  DataCell(Center(child: Text(''))),
-                                  DataCell(Center(child: Text('600'))),
-                                  DataCell(Center(child: Text('400'))),
-                                ]),
-                                DataRow(cells: [
-                                  DataCell(Center(child: Text('Cimetidine'))),
-                                  DataCell(Center(child: Text(''))),
-                                  DataCell(Center(child: Text('500'))),
-                                  DataCell(Center(child: Text('500'))),
-                                ]),*/
                             ),
                           ],
                         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rmpwebapp/auth.dart';
-import 'package:rmpwebapp/dashboard.dart';
+import 'package:rmpwebapp/routes/dashboard.dart';
+import 'package:rmpwebapp/services/auth.dart';
 
 
 class Login extends StatefulWidget {
@@ -16,6 +16,16 @@ class _LoginState extends State<Login> {
   late TextEditingController emailTC = TextEditingController();
   late TextEditingController passwordTC = TextEditingController();
   bool isAdmin = false;
+
+  String dropdownvalue = 'Iligan';
+
+  List<String> branch_loc = [
+    'Iligan',
+    'Kapatagan',
+    'Maranding',
+    'Aurora'
+  ];
+
 
   @override
   void initState() {
@@ -88,6 +98,37 @@ class _LoginState extends State<Login> {
                                 ),
                               ),
                               const SizedBox(width: 30),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 0),
+                                child: Container(
+                                  color: const Color(0xFFE5E3E4),
+                                    width: 435,
+                                    child: !isAdmin
+                                        ? DropdownButton(
+                                            style: GoogleFonts.getFont('Open Sans', color: const Color(0xFF86BAB5), fontSize: 14, fontStyle: FontStyle.italic, fontWeight: FontWeight.w600),
+                                            alignment: Alignment.center,
+                                            isExpanded: true,
+                                            value: dropdownvalue,
+                                            dropdownColor: const Color(0xFFE5E3E4),
+                                            icon: const Icon(Icons.keyboard_arrow_down),
+                                            items: branch_loc.map((String items) {
+                                              return DropdownMenuItem(
+                                                value: items,
+                                                alignment: Alignment.centerLeft,
+                                                child: Text(items),
+                                              );
+                                            }).toList(),
+                                            onChanged: (newValue) {
+                                              setState(() {
+                                                dropdownvalue = newValue!;
+                                                //updateOrders();
+                                              });
+                                            },
+                                          )
+                                        : Container()
+                                ),
+                              ),
+                              /*
                               SizedBox(
                                 height: 60,
                                 width: 440,
@@ -124,7 +165,7 @@ class _LoginState extends State<Login> {
                                     ),
                                   ),
                                 ),
-                              ),
+                              ),*/
                             ],
                           ),
                           const SizedBox(height: 40),
@@ -269,9 +310,9 @@ class _LoginState extends State<Login> {
                                           shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50))))
                                       ),
                                       onPressed: (){
-                                        Map<String, String> cred = AuthService().signIn(emailTC.text, passwordTC.text, widget.session);
+                                        Map<String, String> cred = AuthService().signIn(emailTC.text, passwordTC.text, widget.session, dropdownvalue);
                                         if(cred.isNotEmpty){
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard(session: cred.keys.first)));
+                                          Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard(session: cred.keys.first, credential: cred)));
                                         }else{
                                           print('Invalid credentials');
                                         }

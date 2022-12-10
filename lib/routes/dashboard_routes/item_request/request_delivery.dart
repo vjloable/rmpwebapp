@@ -1,12 +1,22 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:rmpwebapp/services/notifications.dart';
+import 'package:rmpwebapp/structures/database.dart';
+import 'package:rmpwebapp/structures/medicine.dart';
+import 'package:rmpwebapp/structures/order.dart';
 
 final formatCurrency = NumberFormat.currency(symbol: '₱');
 
 class RequestDelivery extends StatefulWidget {
   final double requestPrice;
   final String session;
-  const RequestDelivery({required this.requestPrice, required this.session, Key? key}) : super(key: key);
+  final List<Medicine> medicines;
+  final Map<String, String> credentials;
+  final double total;
+  final Function() reset;
+  const RequestDelivery({required this.requestPrice, required this.session, required this.medicines, required this.credentials, required this.total, required this.reset, Key? key}) : super(key: key);
 
   @override
   State<RequestDelivery> createState() => _RequestDeliveryState();
@@ -14,9 +24,11 @@ class RequestDelivery extends StatefulWidget {
 
 class _RequestDeliveryState extends State<RequestDelivery> {
   bool isAdmin = false;
+  List<Medicine> meds = [];
 
   @override
   void initState() {
+    meds = widget.medicines;
     verifySession();
     super.initState();
   }
@@ -27,6 +39,24 @@ class _RequestDeliveryState extends State<RequestDelivery> {
     }else if(widget.session == 'user'){
       isAdmin = false;
     }
+  }
+
+  void submitOrder(){
+    String tcode;
+    do{
+      tcode = 'MED${(Random().nextInt(999999).toString()).padLeft(6, '0')}';
+    }while(Database.transcodes.containsKey(tcode));
+    String date = DateFormat('yyyy/MM/dd').format(DateTime.now());
+
+    Order o = Order(tcode, date, widget.credentials.values.first, widget.total, meds, isAdmin ? 'UNILAB' : 'WAREHOUSE');
+    if(isAdmin){
+      Database.from_supplier_orders.add(o);
+    }else{
+      Database.main_orders.add(o);
+    }
+    Notifications.notify('Admin', o, 1);
+    Notifications.notify(widget.credentials.values.first, o, 1);
+    Database.transcodes.addAll({tcode:''});
   }
 
   @override
@@ -170,7 +200,9 @@ class _RequestDeliveryState extends State<RequestDelivery> {
                                   backgroundColor: const Color(0xFFDDBEAA),
                                 ),
                                 onPressed: () {
-                                  Navigator.pop(context);
+                                  submitOrder();
+                                  //checkBadge();
+                                  widget.reset();
                                   Navigator.pop(context);
                                 },
                                 child: const Padding(

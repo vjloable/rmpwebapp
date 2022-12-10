@@ -1,18 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:rmpwebapp/about.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:rmpwebapp/branches.dart';
-import 'firebase_options.dart';
+import 'dart:async';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+import 'package:flutter/material.dart';
+import 'package:rmpwebapp/routes/about.dart';
+
+void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  static final StreamController<List<dynamic>> eventstreamController = StreamController<List<dynamic>>.broadcast();
   const MyApp({super.key});
 
   // This widget is the root of your application.

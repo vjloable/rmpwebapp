@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:rmpwebapp/structures/medicine.dart';
 
 final formatCurrency = NumberFormat.currency(symbol: '₱');
 
 class NewDataRow{
   final String product, purchase, expiry;
-  final int quantity, cost;
+  final int quantity;
+  final double cost;
   NewDataRow({required this.product, required this.purchase, required this.expiry, required this.quantity, required this.cost});
 
   DataRow generate() {
@@ -20,21 +22,24 @@ class NewDataRow{
     );
   }
 }
-class StockOrderedOrder extends StatefulWidget {
-  final String order;
-  const StockOrderedOrder({required this.order, Key? key}) : super(key: key);
+class StockOrderedOrderBranches extends StatefulWidget {
+  final String transcode;
+  final List<Medicine> medicines;
+  const StockOrderedOrderBranches({required this.transcode, required this.medicines, Key? key}) : super(key: key);
 
   @override
-  State<StockOrderedOrder> createState() => _StockOrderedOrderState();
+  State<StockOrderedOrderBranches> createState() => _StockOrderedOrderBranchesState();
 }
 
-class _StockOrderedOrderState extends State<StockOrderedOrder> {
+class _StockOrderedOrderBranchesState extends State<StockOrderedOrderBranches> {
   final _scrollController = ScrollController();
-  List<String> product = ['Baclofen', 'Pindolol', 'Cimetidine', '', '', ''];
-  List<String> purchase = ['11/11/2022', '11/11/2022', '11/11/2022', '', '', ''];
-  List<String> expiry = ['12/13/2025', '12/13/2025', '12/13/2025', '', '', ''];
-  List<int> quantity = [500, 500, 200, 0, 0, 0];
-  List<int> cost = [3000, 2500, 3500, 0, 0, 0];
+  List<Medicine> meds = [];
+
+  @override
+  void initState() {
+    meds = widget.medicines.reversed.toList();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +100,7 @@ class _StockOrderedOrderState extends State<StockOrderedOrder> {
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
                                     child: Text(
-                                        'Transaction Code: ${widget.order}',
+                                        'Transaction Code: ${widget.transcode}',
                                         textAlign: TextAlign.center,
                                         style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w100, fontStyle: FontStyle.italic)
                                     ),
@@ -144,7 +149,7 @@ class _StockOrderedOrderState extends State<StockOrderedOrder> {
                                   DataColumn(label: Expanded(child: Text('Quantity', textAlign: TextAlign.center))),
                                   DataColumn(label: Expanded(child: Text('Cost', textAlign: TextAlign.center))),
                                 ],
-                                rows: List.generate(product.length, (index) => NewDataRow(product: product[index], purchase: purchase[index], expiry: expiry[index], quantity: quantity[index], cost: cost[index]).generate())
+                                rows: List.generate(meds.length, (index) => NewDataRow(product: meds[index].name, purchase: meds[index].dpurch, expiry: meds[index].expdir, quantity: meds[index].quantity, cost: meds[index].cost).generate())
                             ),
                           ),
                         ),

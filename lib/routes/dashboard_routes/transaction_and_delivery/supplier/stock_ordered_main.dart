@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rmpwebapp/stock_ordered_order.dart';
+import 'package:rmpwebapp/routes/dashboard_routes/transaction_and_delivery/supplier/stock_ordered_order.dart';
+import 'package:rmpwebapp/structures/database.dart';
+import 'package:rmpwebapp/structures/medicine.dart';
+import 'package:rmpwebapp/structures/order.dart';
 
 final formatCurrency = NumberFormat.currency(symbol: '₱');
 
 class NewDataRow{
   final String transcode, date;
+  final List<Medicine> medicines;
   final context;
-  NewDataRow({required this.transcode, required this.date, required this.context});
+  NewDataRow({required this.transcode, required this.date, required this.medicines, required this.context});
 
   DataRow generate() {
     return DataRow(
@@ -15,7 +19,7 @@ class NewDataRow{
           DataCell(Center(
               child: TextButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => StockOrderedOrder(order: transcode)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => StockOrderedOrderSupplier(transcode: transcode, medicines: medicines)));
                 },
                 child: Text(transcode, style: const TextStyle(fontSize: 20)),
               )
@@ -26,17 +30,34 @@ class NewDataRow{
   }
 }
 
-class StockOrderedMain extends StatefulWidget {
-  const StockOrderedMain({Key? key}) : super(key: key);
+class StockOrderedMainSupplier extends StatefulWidget {
+  final String session;
+  final Map<String, String> credentials;
+  const StockOrderedMainSupplier({required this.credentials, required this.session, Key? key}) : super(key: key);
 
   @override
-  State<StockOrderedMain> createState() => _StockOrderedMainState();
+  State<StockOrderedMainSupplier> createState() => _StockOrderedMainSupplierState();
 }
 
-class _StockOrderedMainState extends State<StockOrderedMain> {
+class _StockOrderedMainSupplierState extends State<StockOrderedMainSupplier> {
   final _scrollController = ScrollController();
-  List<String> transcode = ['MED1009320', 'MED1143721', 'MED1086372', '', '', ''];
-  List<String> date = ['11/11/2022', '11/11/2022', '11/11/2022', '', '', ''];
+  List<Order> orders = [];
+  bool isAdmin = false;
+
+  @override
+  void initState() {
+    verifySession();
+    orders = isAdmin ? Database.from_supplier_orders.reversed.toList() : Database.getMainOrders(widget.credentials.values.first).reversed.toList();
+    super.initState();
+  }
+
+  void verifySession(){
+    if(widget.session == 'admin'){
+      isAdmin = true;
+    }else if(widget.session == 'user'){
+      isAdmin = false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +139,7 @@ class _StockOrderedMainState extends State<StockOrderedMain> {
                                   DataColumn(label: Expanded(child: Text('Transaction Code', textAlign: TextAlign.center))),
                                   DataColumn(label: Expanded(child: Text('Date Purchased', textAlign: TextAlign.center))),
                                 ],
-                                rows: List.generate(transcode.length, (index) => NewDataRow(transcode: transcode[index], date: date[index], context: context).generate())
+                                rows: List.generate(orders.length, (index) => NewDataRow(transcode: orders[index].tcode, date: orders[index].date, medicines: orders[index].medicine, context: context).generate())
                             ),
                           ),
                         ),

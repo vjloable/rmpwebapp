@@ -1,52 +1,118 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:rmpwebapp/routes/dashboard_routes/transaction_and_delivery/branches/stock_ordered_order.dart';
+import 'package:rmpwebapp/structures/database.dart';
+import 'package:rmpwebapp/structures/medicine.dart';
+import 'package:rmpwebapp/structures/order.dart';
 
 final formatCurrency = NumberFormat.currency(symbol: '₱');
 
 class NewDataRow{
   final String tcode, dp, arrival, supplier, status;
-  final int amount;
-  NewDataRow(this.tcode, this.dp, this.arrival, this.supplier, this.amount, this.status);
+  final double amount;
+  final context;
+  final List<Medicine> meds;
+  NewDataRow(this.tcode, this.dp, this.arrival, this.supplier, this.amount, this.status, this.context, this.meds);
 
   DataRow generate() {
     return DataRow(
         cells: [
-          DataCell(Center(child: Text(tcode))),
+          DataCell(
+              Center(
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => StockOrderedOrderBranches(transcode: tcode, medicines: meds)));
+                  },
+                  child: Text(tcode)
+                )
+              )
+          ),
           DataCell(Center(child: Text(dp))),
           DataCell(Center(child: Text(arrival))),
           DataCell(Center(child: Text(supplier))),
           DataCell(Center(child: Text(formatCurrency.format(amount)))),
-          DataCell(Center(child: Text(status))),
+          DataCell(
+              Center(
+              child: Text(
+                  status,
+                  style: TextStyle(fontWeight: FontWeight.bold,
+                      color: status == 'PENDING'
+                          ? Colors.grey
+                          : status == 'ON THE WAY'
+                          ? Colors.yellow
+                          : status == 'DELIVERED'
+                          ? Colors.green
+                          : Colors.transparent
+                  )
+              )
+          )),
         ]
     );
   }
 }
-class DeliveryStatus extends StatefulWidget {
-  const DeliveryStatus({Key? key}) : super(key: key);
+class DeliveryStatusBranches extends StatefulWidget {
+  final Map<String, String> credentials;
+  final String session;
+  const DeliveryStatusBranches({required this.credentials, required this.session, Key? key}) : super(key: key);
 
   @override
-  State<DeliveryStatus> createState() => _DeliveryStatusState();
+  State<DeliveryStatusBranches> createState() => _DeliveryStatusBranchesState();
 }
 
-class _DeliveryStatusState extends State<DeliveryStatus> {
+class _DeliveryStatusBranchesState extends State<DeliveryStatusBranches> {
   final _scrollController = ScrollController();
-  List<String> tcode = ['MED890760', 'MED007865', 'MED324118'];
-  List<String> dp = ['11/11/2022', '11/11/2022', '11/11/2022'];
-  List<String> arrival = ['11/30/2022', '11/30/2022', '12/12/2022'];
-  List<String> supplier = ['UNILAB', 'UNILAB', 'UNILAB'];
-  List<int> amount = [32000, 25000, 35000];
-  List<String> status = ['DELIVERED', 'ON THE WAY', 'PENDING'];
+  List<Order> orders = [];
+  bool isAdmin = false;
+
+  @override
+  void initState() {
+    verifySession();
+    updateOrders();
+    super.initState();
+  }
 
   void sort() {
     setState(() {
-      tcode = tcode.reversed.toList();
-      dp = dp.reversed.toList();
-      arrival = arrival.reversed.toList();
-      supplier = supplier.reversed.toList();
-      amount = amount.reversed.toList();
-      status = status.reversed.toList();
+      orders = orders.reversed.toList();
     });
   }
+
+  void verifySession(){
+    if(widget.session == 'admin'){
+      isAdmin = true;
+    }else if(widget.session == 'user'){
+      isAdmin = false;
+    }
+  }
+
+  void updateOrders(){
+    setState(() {
+      if(dropdownvalue == items[0]){
+        orders = Database.getMainOrders('Iligan 1').reversed.toList();
+      }else if(dropdownvalue == items[1]){
+        orders = Database.getMainOrders('Iligan 2').reversed.toList();
+      }else if(dropdownvalue == items[2]){
+        orders = Database.getMainOrders('Kapatagan').reversed.toList();
+      }else if(dropdownvalue == items[3]){
+        orders = Database.getMainOrders('Maranding').reversed.toList();
+      }else if(dropdownvalue == items[4]){
+        orders = Database.getMainOrders('Aurora').reversed.toList();
+      }
+    });
+  }
+
+  String dropdownvalue = 'Iligan Branch 1';
+
+  var items = [
+    'Iligan Branch 1',
+    'Iligan Branch 2',
+    'Kapatagan Branch',
+    'Maranding Branch',
+    'Aurora Branch'
+  ];
+
+  //Navigator.push(context, MaterialPageRoute(builder: (context) => StockOrderedOrderBranches(transcode: transcode, medicines: medicines)));
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +159,52 @@ class _DeliveryStatusState extends State<DeliveryStatus> {
                                 child: Text('Delivery Status', style: TextStyle(color: Color(0xFF469597), letterSpacing: 2, fontSize: 50, fontWeight: FontWeight.bold)),
                               ),
                             ),
+                            const SizedBox(height: 1, width: 550),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 50),
+                              child: TextButton(
+                                  onPressed: () {},
+                                  child: const Padding(
+                                    padding: EdgeInsets.only(bottom: 20, top: 10),
+                                    child: Icon(Icons.pin_drop, size: 40, color: Color(0xFF86BAB5)),
+                                  )
+                              ),
+                            ),
+                            const SizedBox(height: 1, width: 10),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 50),
+                              child: SizedBox(
+                                  height: 60,
+                                  width: 350,
+                                  child:
+                                  isAdmin ? DropdownButton(
+                                    style: GoogleFonts.getFont('Open Sans', color: const Color(0xFF86BAB5), fontSize: 14, fontStyle: FontStyle.italic, fontWeight: FontWeight.w600),
+                                    isExpanded: true,
+                                    value: dropdownvalue,
+                                    icon: const Icon(Icons.keyboard_arrow_down),
+                                    items: items.map((String items) {
+                                      return DropdownMenuItem(
+                                        value: items,
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(items),
+                                      );
+                                    }).toList(),
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        dropdownvalue = newValue!;
+                                        updateOrders();
+                                      });
+                                    },
+                                  )
+                                      : Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      widget.credentials.values.first,
+                                      style: GoogleFonts.getFont('Open Sans', color: const Color(0xFF86BAB5), fontSize: 14, fontStyle: FontStyle.italic, fontWeight: FontWeight.w600),
+                                    ),
+                                  )
+                              ),
+                            ),
                           ],
                         )
                     ),
@@ -115,7 +227,7 @@ class _DeliveryStatusState extends State<DeliveryStatus> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    InkWell(onTap: () {sort();}, child: MouseRegion(cursor: SystemMouseCursors.click, child: const SizedBox(height: 80, width: 80, child: Center(child: Icon(Icons.sort, color: Color(0xFFDDBEAA), size: 48))))),
+                                    InkWell(onTap: () {sort();}, child: const MouseRegion(cursor: SystemMouseCursors.click, child: SizedBox(height: 80, width: 80, child: Center(child: Icon(Icons.sort, color: Color(0xFFDDBEAA), size: 48))))),
                                   ],
                                 ),
                               ),
@@ -147,7 +259,7 @@ class _DeliveryStatusState extends State<DeliveryStatus> {
                                               DataColumn(label: Expanded(child: Text('Order Amount', textAlign: TextAlign.center))),
                                               DataColumn(label: Expanded(child: Text('Order Status', textAlign: TextAlign.center))),
                                             ],
-                                            rows: List.generate(tcode.length, (i) => NewDataRow(tcode[i], dp[i], arrival[i], supplier[i], amount[i], status[i]).generate())
+                                            rows: List.generate(orders.length, (i) => NewDataRow(orders[i].tcode, orders[i].date, orders[i].arrival, orders[i].supplier, orders[i].total, orders[i].getStatus(), context, orders[i].medicine).generate())
                                         ),
                                       ),
                                     ),

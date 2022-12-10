@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rmpwebapp/request_delivery.dart';
+import 'package:rmpwebapp/routes/dashboard_routes/item_request/request_delivery.dart';
+import 'package:rmpwebapp/structures/medicine.dart';
 
 final formatCurrency = NumberFormat.currency(symbol: '₱');
 
 class NewDataRow{
   late bool value = false;
   final String brand, generic;
-  late double quantity, pcost, tcost, min;
-  late int position;
-  final void Function(int x, double y) callback;
+  late double pcost, tcost;
+  late int position, quantity, min;
+  final void Function(int x, int y) callback;
   NewDataRow({required this.brand, required this.generic, required this.quantity, required this.pcost, required this.tcost, required this.callback, required this.position, required this.min});
 
   DataRow generate() {
@@ -41,7 +42,8 @@ class NewDataRow{
 
 class ItemRequest extends StatefulWidget {
   final String session;
-  const ItemRequest({required this.session, Key? key}) : super(key: key);
+  final Map<String,String> credentials;
+  const ItemRequest({required this.session, required this.credentials, Key? key}) : super(key: key);
 
   @override
   State<ItemRequest> createState() => _ItemRequestState();
@@ -51,8 +53,8 @@ class _ItemRequestState extends State<ItemRequest> {
   final _scrollController = ScrollController();
   List<String> generic = ['GEN-Baclofen', 'GEN-Buspirone', 'GEN-Cimetidine'];
   List<String> brands = ['Baclofen', 'Buspirone-HCL', 'Cimetidine'];
-  List<double> quantityValA = [0, 0, 0];
-  List<double> quantityValB = [0, 0, 0];
+  List<int> quantityValA = [0, 0, 0];
+  List<int> quantityValB = [0, 0, 0];
   List<double> percostVal = [30, 20, 15];
   List<double> tcost = [0, 0, 0];
 
@@ -74,18 +76,42 @@ class _ItemRequestState extends State<ItemRequest> {
     }
   }
 
-  void refresh(int x, double y){
+  void refresh(int x, int y){
     setState(() {
       quantityValA[x] = y;
       changeTotal();
       tcost[x] = quantityValA[x] * percostVal[x];
     });
   }
+
   void changeTotal(){
     totalPrice = 0;
     for(int i = 0; i < quantityValA.length; i++){
       totalPrice += quantityValA[i] * percostVal[i];
     }
+  }
+
+  List<Medicine> repackMeds(){
+    String date = DateFormat('yyyy/MM/dd').format(DateTime.now());
+    String expr = DateFormat('yyyy/MM/dd').format(DateTime(DateTime.now().year, DateTime.now().month + 36, DateTime.now().day));
+    List<Medicine> ms = [];
+    for(int i = 0; i < generic.length; i++){
+      if(quantityValA[i] > 0){
+        Medicine m = Medicine(brands[i], generic[i], date, expr, quantityValA[i], percostVal[i]);
+        ms.add(m);
+      }
+    }
+    return ms;
+  }
+
+  void reset(){
+    setState(() {
+      quantityValA = [0, 0, 0];
+      quantityValB = [0, 0, 0];
+      percostVal = [30, 20, 15];
+      tcost = [0, 0, 0];
+      totalPrice = 0;
+    });
   }
 
   @override
@@ -154,7 +180,9 @@ class _ItemRequestState extends State<ItemRequest> {
                                 )
                             ),
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => RequestDelivery(requestPrice: totalPrice, session: isAdmin ? 'admin' : 'user')));
+                              if(totalPrice > 0){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => RequestDelivery(requestPrice: totalPrice, session: isAdmin ? 'admin' : 'user', medicines: repackMeds(), credentials: widget.credentials, total: totalPrice, reset: reset)));
+                              }
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
@@ -195,38 +223,6 @@ class _ItemRequestState extends State<ItemRequest> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            /*
-                            SizedBox(
-                              width: 80,
-                              child: Column(
-                                children: [
-                                  InkWell(
-                                    splashFactory: NoSplash.splashFactory, borderRadius: const BorderRadius.all(Radius.circular(50)),
-                                    onTap: () {
-                                      setState(() {
-                                        checkVal = [false, false, false, false, false, false, false];
-                                      });
-                                    },
-                                    child: const MouseRegion(
-                                      opaque: false,
-                                      cursor: SystemMouseCursors.click,
-                                      child: SizedBox(
-                                        height: 80,
-                                        width: 80,
-                                        child: Center(
-                                            child: Icon(Icons.delete, color: Color(0xFFDDBEAA), size: 48)
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Column(
-                                    children:
-                                    List.generate(quantityValA.length, (index) => SizedBox(height: 80, width: 80, child: Center(child: Checkbox(fillColor: const MaterialStatePropertyAll(Colors.brown), side: const BorderSide(color: Color(0xFFDDBEAA), width: 2), value: checkVal[index], onChanged: (e){setState(() {checkVal[index] = !checkVal[index];});}))))
-                                  ),
-                                ],
-                              ),
-                            ),
-                            */
                             SizedBox(
                               height: 650,
                               width: 1400,
