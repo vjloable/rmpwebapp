@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:rmpwebapp/routes/dashboard.dart';
+import 'package:rmpwebapp/routes/dashboard_routes/item_request/item_request.dart';
 import 'package:rmpwebapp/services/notifications.dart';
 import 'package:rmpwebapp/structures/database.dart';
 import 'package:rmpwebapp/structures/medicine.dart';
@@ -51,11 +53,12 @@ class _RequestDeliveryState extends State<RequestDelivery> {
     Order o = Order(tcode, date, widget.credentials.values.first, widget.total, meds, isAdmin ? 'UNILAB' : 'WAREHOUSE');
     if(isAdmin){
       Database.from_supplier_orders.add(o);
+      Notifications.notify(widget.credentials.values.first, o, 1);
     }else{
       Database.main_orders.add(o);
+      Notifications.notify(widget.credentials.values.first, o, 1);
+      Notifications.notify('Admin', o, 1);
     }
-    Notifications.notify('Admin', o, 1);
-    Notifications.notify(widget.credentials.values.first, o, 1);
     Database.transcodes.addAll({tcode:''});
   }
 
@@ -201,9 +204,12 @@ class _RequestDeliveryState extends State<RequestDelivery> {
                                 ),
                                 onPressed: () {
                                   submitOrder();
-                                  //checkBadge();
                                   widget.reset();
                                   Navigator.pop(context);
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard(session: widget.session, credential: widget.credentials)));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => ItemRequest(session: widget.session, credentials: widget.credentials)));
                                 },
                                 child: const Padding(
                                   padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),

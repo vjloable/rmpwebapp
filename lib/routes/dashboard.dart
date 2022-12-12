@@ -10,7 +10,6 @@ import 'package:rmpwebapp/routes/dashboard_routes/transaction_and_delivery/branc
 import 'package:rmpwebapp/routes/dashboard_routes/transaction_and_delivery/branches/stock_ordered_main.dart';
 import 'package:rmpwebapp/routes/dashboard_routes/transaction_and_delivery/supplier/delivery_status.dart';
 import 'package:rmpwebapp/routes/dashboard_routes/transaction_and_delivery/supplier/stock_ordered_main.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:rmpwebapp/services/notifications.dart';
 import 'package:rmpwebapp/structures/database.dart';
 
@@ -470,6 +469,7 @@ class _DashboardState extends State<Dashboard> {
   static bool _isSupplierClicked = false;
   static bool _isBranchesClicked = false;
   static bool _showNotifications = false;
+  static bool _afterNotifications = false;
   static bool _showBadge = false;
   bool isAdmin = false;
 

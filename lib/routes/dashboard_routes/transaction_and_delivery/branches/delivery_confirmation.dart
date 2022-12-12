@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:rmpwebapp/routes/dashboard.dart';
 import 'package:rmpwebapp/services/notifications.dart';
 import 'package:rmpwebapp/structures/database.dart';
 import 'package:rmpwebapp/structures/order.dart';
@@ -12,7 +13,9 @@ class NewDataRow{
   final context;
   final Function(String x, Order y) callback;
   final Order order;
-  NewDataRow({required this.order, required this.callback, required this.transcode, required this.branch, required this.cost, required this.context});
+  final String session;
+  final Map<String, String> credentials;
+  NewDataRow({required this.order, required this.callback, required this.transcode, required this.branch, required this.cost, required this.context, required this.session, required this.credentials});
 
   DataRow generate() {
     return DataRow(
@@ -35,6 +38,11 @@ class NewDataRow{
                         ),
                         onPressed: (){
                           callback('deny', order);
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard(session: session, credential: credentials)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => DeliveryConfirmation(session: session, credentials: credentials,)));
                         },
                         child: const Center(child: Padding(
                           padding: EdgeInsets.all(7.0),
@@ -48,6 +56,11 @@ class NewDataRow{
                           ),
                           onPressed: (){
                             callback('allow', order);
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard(session: session, credential: credentials)));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => DeliveryConfirmation(session: session, credentials: credentials,)));
                           },
                           child: const Center(child: Padding(
                             padding: EdgeInsets.all(7.0),
@@ -209,7 +222,7 @@ class _DeliveryConfirmationState extends State<DeliveryConfirmation> {
                                   DataColumn(label: Expanded(child: Text('Cost', textAlign: TextAlign.center))),
                                   DataColumn(label: Expanded(child: Text('CONFIRM', textAlign: TextAlign.center))),
                                 ],
-                                rows: List.generate(orders.length, (index) => NewDataRow(order: orders[index], callback: confirmation, transcode: orders[index].tcode, branch: orders[index].branch, cost: orders[index].total, context: context).generate())
+                                rows: List.generate(orders.length, (index) => NewDataRow(order: orders[index], callback: confirmation, transcode: orders[index].tcode, branch: orders[index].branch, cost: orders[index].total, context: context, credentials: widget.credentials, session: widget.session).generate())
                             ),
                           ),
                         ),
