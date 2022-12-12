@@ -459,7 +459,7 @@ class _BranchesState extends State<Branches> {
                                     child: SizedBox(
                                       width: 170,
                                       height: 40,
-                                      child: ElevatedButton(
+                                      child: isAdmin ? Container() : ElevatedButton(
                                           style: ElevatedButton.styleFrom(
                                               backgroundColor: const Color(0xFFDDBEAA),
                                               shape: RoundedRectangleBorder(
