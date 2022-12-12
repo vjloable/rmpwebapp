@@ -1,5 +1,5 @@
-List<String> admin_emails = ['', 'admin@rmp.com'];
-List<String> admin_password = ['','1234'];
+List<String> admin_emails = ['admin@rmp.com'];
+List<String> admin_password = ['1234'];
 List<String> user_emails = ['iligan_branch1@rmp.com','iligan_branch2@rmp.com','kapatagan_branch@rmp.com','maranding_branch@rmp.com','aurora_branch@rmp.com'];
 List<String> user_password = ['1234','1234','1234','1234','1234','1234'];
 List<String> user_name = ['Iligan 1','Iligan 2','Kapatagan','Maranding','Aurora'];
