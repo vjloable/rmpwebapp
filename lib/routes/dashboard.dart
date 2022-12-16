@@ -110,10 +110,10 @@ Widget _dashboardUp(BuildContext context, Function callback, bool stateSupplier,
               ],
             ),
           ),
-          Positioned(top: 15,
+          /*Positioned(top: 15,
               right: 20,
               child: IconButton(icon: const Icon(Icons.more_vert_rounded, size: 26, color: Colors.grey), onPressed: () {})
-          )
+          )*/
         ],
       ),
       const SizedBox(height: 30),
@@ -175,10 +175,10 @@ Widget _dashboardUp(BuildContext context, Function callback, bool stateSupplier,
               ],
             ),
           ),
-          Positioned(top: 15,
+          /*Positioned(top: 15,
               right: 20,
               child: IconButton(icon: const Icon(Icons.more_vert_rounded, size: 26, color: Colors.grey), onPressed: () {})
-          )
+          )*/
         ],
       ),
       const SizedBox(height: 30),
@@ -374,10 +374,10 @@ Widget _dashboardUp(BuildContext context, Function callback, bool stateSupplier,
               ],
             ),
           ),
-          Positioned(top: 15,
+          /*Positioned(top: 15,
               right: 20,
               child: IconButton(icon: const Icon(Icons.more_vert_rounded, size: 26, color: Colors.grey), onPressed: () {})
-          )
+          )*/
         ],
       ),
     ],
@@ -445,10 +445,10 @@ Widget _dashboardDown(BuildContext context){
               ],
             ),
           ),
-          Positioned(top: 15,
+          /*Positioned(top: 15,
               right: 20,
               child: IconButton(icon: const Icon(Icons.more_vert_rounded, size: 26, color: Colors.grey), onPressed: () {})
-          )
+          )*/
         ],
       ),
     ],
@@ -587,10 +587,10 @@ class _DashboardState extends State<Dashboard> {
                                 child: Row(
                                   children: [
                                     const SizedBox(height: 1, width: 150),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 60,
                                       width: 600,
-                                      child: TextFormField(
+                                      /*child: TextFormField(
                                         cursorColor: const Color(0xFF00654F),
                                         keyboardType: TextInputType.text,
                                         decoration: InputDecoration(
@@ -628,7 +628,7 @@ class _DashboardState extends State<Dashboard> {
                                           hintStyle: const TextStyle(color: Color(0xFF86BAB5), fontSize: 14, fontStyle: FontStyle.italic, fontWeight: FontWeight.w300),
                                           filled: true,
                                         ),
-                                      ),
+                                      ),*/
                                     ),
                                     const SizedBox(height: 1, width: 400),
                                     TextButton(
@@ -663,11 +663,11 @@ class _DashboardState extends State<Dashboard> {
                                       ),
                                     ),
                                     const SizedBox(height: 1, width: 10),
-                                    TextButton(
+                                    /*TextButton(
                                         onPressed: () {},
                                         child: const Icon(Icons.mail_outline_rounded, size: 22, color: Color(0xFF86BAB5))
-                                    ),
-                                    const SizedBox(height: 1, width: 10),
+                                    ),*/
+                                    // const SizedBox(height: 1, width: 10),
                                     TextButton(
                                         onPressed: () {
                                           showNotifications();
@@ -755,7 +755,7 @@ class _DashboardState extends State<Dashboard> {
                                   )
                               ),
                             ),
-                            SizedBox(
+                            /*SizedBox(
                               height: 90,
                               width: 300,
                               child: RawMaterialButton(
@@ -834,7 +834,7 @@ class _DashboardState extends State<Dashboard> {
                                     ],
                                   )
                               ),
-                            ),
+                            ),*/
                           ],
                         ),
                       ),
